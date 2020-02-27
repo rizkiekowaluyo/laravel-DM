@@ -21,3 +21,8 @@ Route::get('/', function () {
 // Route::put('/disasters/edit/{disaster}', 'DisastersController@update');
 Route::resource('/disasters', 'DisastersController');
 Route::get('/disasters/{id}/destroy', 'DisastersController@destroy');
+Route::get('/disasters/exportexcel', 'DisastersController@exportexcel')->name('disasters.export');
+Route::post('/disasters/importexcel', 'DisastersController@importexcel')->name('disasters.import');
+
+
+

@@ -19,8 +19,8 @@
                             <p class="button">
 								<button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus-square"></i> Add Data </button>
 								<!-- Button trigger modal -->								
-                                <button type="button" class="col-6 btn btn-default"><i class="fa fa-file-export"></i> Export Data </button>
-                                <button type="button" class="btn btn-default"><i class="fa fa-file-import"></i> Import Data </button>
+								<a href="{{ route('disasters.export') }}" class="col-6 btn btn-default"><i class="fa fa-file-export"></i> Export Data </a>
+                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#importDisaster"><i class="fa fa-file-import"></i> Import Data </button>
 							</p>
 							
 							@include('admin.disasteradd')							
@@ -55,7 +55,36 @@
                                     @endforeach					
 								</tbody>
 							</table>	
-							{{$disasters->links()}}						
+							{{$disasters->links()}}	
+							
+							<!-- Modal Import Excel-->
+							<div class="modal fade" id="importDisaster" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+								<form method="post" action="{{ route('disasters.import') }}" enctype="multipart/form-data">								
+								<div class="modal-content">
+									<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									</div>
+									<div class="modal-body">
+									@csrf
+									{{-- {!! Form::open(['route'=> 'disasters.import', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
+									{!! Form::file('data_disasters') !!} --}}
+										<div class="form-group">
+											<input type="file" name="file" required="required">
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>									
+										<input type="submit" class="btn btn-primary" value="import">
+										{{-- </form> --}}
+									</div>
+								</div>
+								</form>
+								</div>
+							</div>
 
 							@include('admin.disasteredit')																				
 							{{-- @include('admin.disasterdelete')																				 --}}

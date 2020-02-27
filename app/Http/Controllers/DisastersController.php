@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Disaster;
 use Illuminate\Http\Request;
+use App\Imports\DisasterImport;
+use App\Exports\DisasterExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DisastersController extends Controller
 {
@@ -94,4 +97,18 @@ class DisastersController extends Controller
         $disasters->delete();
         return redirect()->route('disasters.index');
     }
+    
+    public function exportexcel(){
+        return Excel::download(new DisasterExport(), 'disaster.xlsx');
+        // return "hello";
+    }
+
+    public function importexcel(Request $request){
+        
+        // $file = $request->file('file');
+        Excel::import(new DisasterImport,$request->file('file'));        
+        //Excel::import(new DisasterImport,$request->file('file'),\Maatwebsite\Excel\Excel::XLSX);            
+        return redirect()->route('disasters.index');
+    }
+
 }
