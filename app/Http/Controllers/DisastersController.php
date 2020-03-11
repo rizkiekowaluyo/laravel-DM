@@ -6,6 +6,7 @@ use App\Disaster;
 use Illuminate\Http\Request;
 use App\Imports\DisasterImport;
 use App\Exports\DisasterExport;
+use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 
 class DisastersController extends Controller
@@ -42,6 +43,12 @@ class DisastersController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'namawilayah' => 'required',
+            'jumlahkejadian' => 'required|numeric',
+            'jumlahkorban' => 'required|numeric',
+            'jumlahkerusakan' => 'required|numeric'
+        ]);
         Disaster::create($request->all());      
         return redirect()->route('disasters.index');
     }
@@ -63,9 +70,11 @@ class DisastersController extends Controller
      * @param  \App\Disaster  $disaster
      * @return \Illuminate\Http\Response
      */
-    public function edit(Disaster $disaster)
+    public function edit($id)
     {
         //
+        $disasters = Disaster::find($id);
+        return response()->json($disasters);
     }
 
     /**
@@ -78,6 +87,12 @@ class DisastersController extends Controller
     public function update(Request $request,$id)
     {      
         // return $request;
+        $request->validate([
+            'namawilayah' => 'required',
+            'jumlahkejadian' => 'required|numeric',
+            'jumlahkorban' => 'required|numeric',
+            'jumlahkerusakan' => 'required|numeric'
+        ]);
         $disasters = Disaster::findOrFail($request->id);
         $disasters->update($request->all());
         return redirect()->route('disasters.index');    
@@ -99,13 +114,14 @@ class DisastersController extends Controller
     }
     
     public function exportexcel(){
-        return Excel::download(new DisasterExport(), 'disaster.xlsx');
+        return Excel::download(new DisasterExport(), 'disasterExcel.xlsx');
         // return "hello";
     }
 
-    public function importexcel(Request $request){
-        
-        // $file = $request->file('file');
+    public function importexcel(Request $request){      
+        $request->validate([
+            'file' => 'required|mimes:xlsx'        
+        ]);
         Excel::import(new DisasterImport,$request->file('file'));        
         //Excel::import(new DisasterImport,$request->file('file'),\Maatwebsite\Excel\Excel::XLSX);            
         return redirect()->route('disasters.index');

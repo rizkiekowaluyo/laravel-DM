@@ -24,5 +24,11 @@ Route::get('/disasters/{id}/destroy', 'DisastersController@destroy');
 Route::get('/disasters/exportexcel', 'DisastersController@exportexcel')->name('disasters.export');
 Route::post('/disasters/importexcel', 'DisastersController@importexcel')->name('disasters.import');
 
+//Geographic
+Route::resource('/geographics', 'GeographicsController');
+Route::get('/geographics/{id}/destroy', 'GeographicsController@destroy');
+Route::post('/geographics/importexcel', 'GeographicsController@importexcel')->name('geographics.import');
+
+
 
 

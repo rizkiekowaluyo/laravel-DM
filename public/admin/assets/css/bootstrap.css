@@ -6755,3 +6755,6 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+.swal2-popup {
+  font-size: 1.6rem !important;
+}

@@ -6,23 +6,36 @@
             <h3 class="modal-title" id="exampleModalLabel">Add Data</h3>									
         </div>
         <div class="modal-body">
-            <form id="frmAddDisaster" method="post" action="/disasters">
+            <form id="frmAddDisaster">
+                @method("post")
                 @csrf
-                <div class="form-group">
-                  <label for="namawilayah">Nama Wilayah</label>
-                  <input type="text" class="form-control" name="namawilayah" id="namawilayah">											
+                <div class="form-group @if ($errors->has('namawilayah')) has-error @endif">
+                    <label for="namawilayah">Nama Wilayah</label>                
+                    <input type="text" class="form-control" name="namawilayah" id="namawilayah" placeholder="Nama Wilayah">
+                    @error('namawilayah')
+                        <span class="help-block text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
-                <div class="form-group">
-                  <label for="jumlahkejadian">Jumlah Kejadian</label>
-                  <input type="text" class="form-control" name="jumlahkejadian" id="jumlahkejadian">
+                <div class="form-group @if ($errors->has('jumlahkejadian')) has-error @endif">
+                    <label for="jumlahkejadian">jumlah kejadian</label>
+                    <input type="text" class="form-control" name="jumlahkejadian" id="jumlahkejadian" placeholder="Jumlah Kejadian">
+                    @error('jumlahkejadian')
+                        <span class="help-block text-danger">{{ $message }}</span>
+                    @enderror
                 </div>											
-                <div class="form-group">
-                  <label for="jumlahkorban">Jumlah Korban</label>
-                  <input type="text" class="form-control" name="jumlahkorban" id="jumlahkorban">
+                <div class="form-group @if ($errors->has('jumlahkorban')) has-error @endif">
+                    <label for="jumlahkorban">jumlah korban</label>
+                    <input type="text" class="form-control" name="jumlahkorban" id="jumlahkorban" placeholder="Jumlah Korban">
+                    @error('jumlahkorban')
+                        <span class="help-block text-danger">{{ $message }}</span>
+                    @enderror
                 </div>											
-                <div class="form-group">
-                  <label for="jumlahkerusakan">Jumlah Kerusakan</label>
-                  <input type="text" class="form-control" name="jumlahkerusakan" id="jumlahkerusakan">
+                <div class="form-group @if ($errors->has('jumlahkerusakan')) has-error @endif">
+                    <label for="jumlahkerusakan">Jumlah Kerusakan</label>
+                    <input type="text" class="form-control" name="jumlahkerusakan" id="jumlahkerusakan" placeholder="Jumlah Kerusakan">
+                    @error('jumlahkerusakan')
+                        <span class="help-block text-danger">{{ $message }}</span>
+                    @enderror
                 </div>																				
         </div>
                 <div class="modal-footer">

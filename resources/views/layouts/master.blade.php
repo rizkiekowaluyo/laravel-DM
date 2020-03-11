@@ -13,8 +13,8 @@
 	<link rel="stylesheet" href="{{asset('admin/assets/vendor/chartist/css/chartist-custom.css')}}">
 	<!-- MAIN CSS -->
     <link rel="stylesheet" href="{{asset('admin/assets/css/main.css')}}">
-	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
-	<link rel="stylesheet" href="{{asset('admin/assets/css/demo.css')}}">
+	<!-- additional custom css -->
+	<link rel="stylesheet" href="{{asset('admin/assets/css/sweet.css')}}">
 	<!-- Important to work AJAX CSRF -->
 	<meta name="_token" content="{!! csrf_token() !!}" />
 	<!-- GOOGLE FONTS -->
@@ -48,12 +48,12 @@
 	<!-- END WRAPPER -->
 	<!-- Javascript -->
 	<script src="{{asset('admin/assets/vendor/jquery/jquery.min.js')}}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.js"></script>
+	
 	<script src="{{asset('admin/assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
-	<script src="{{asset('admin/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
-	<script src="{{asset('admin/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js')}}"></script>
-	<script src="{{asset('admin/assets/vendor/chartist/js/chartist.min.js')}}"></script>
-	<script src="{{asset('admin/assets/scripts/klorofil-common.js')}}"></script>	
-	<script src="{{asset('https://kit.fontawesome.com/2c51640d63.js')}}" crossorigin="anonymous"></script>
+	<script src="{{asset('admin/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>	
+	<script src="{{asset('admin/assets/scripts/klorofil-common.js')}}"></script>		
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.js"></script>
 	@yield('script')	
 </body>
