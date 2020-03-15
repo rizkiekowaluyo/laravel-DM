@@ -21,8 +21,7 @@
 								<!-- Button trigger modal -->								
 								{{-- <a href="{{ route('disasters.export') }}" class="col-6 btn btn-default"><i class="fa fa-file-export"></i> Export Data </a> --}}
                                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#importDisaster"><i class="fa fa-file-import"></i> Import Data </button>
-							</p>
-													
+							</p>													
 
 							@include('admin.disasteradd')							
 												
@@ -203,7 +202,7 @@ $(document).ready(function(){
 		})
 
 
-	$('#frmImport').on('sumbmit',function(){
+	$('#frmImport').on('submit',function(){
 		//header token CSRF ***************************
 		$.ajaxSetup({
 			headers: {

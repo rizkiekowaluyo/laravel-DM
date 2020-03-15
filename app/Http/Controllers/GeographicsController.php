@@ -40,6 +40,12 @@ class GeographicsController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'namawilayah' => 'required',
+            'kemiringanlereng' => 'required|numeric',
+            'jenistanah' => 'required|numeric',
+            'curahhujan' => 'required|numeric'
+        ]);
         Geographic::create($request->all());      
         return redirect()->route('geographics.index');
     }
@@ -61,9 +67,11 @@ class GeographicsController extends Controller
      * @param  \App\Geographic  $geographic
      * @return \Illuminate\Http\Response
      */
-    public function edit(Geographic $geographic)
+    public function edit($id)
     {
         //
+        $geographics = Geographic::find($id);
+        return response()->json($geographics);
     }
 
     /**
@@ -73,9 +81,18 @@ class GeographicsController extends Controller
      * @param  \App\Geographic  $geographic
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Geographic $geographic)
+    public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'namawilayah' => 'required',
+            'kemiringanlereng' => 'required|numeric',
+            'jenistanah' => 'required|numeric',
+            'curahhujan' => 'required|numeric'
+        ]);
+        $geographics = Geographic::findOrFail($request->id);
+        $geographics->update($request->all());
+        return redirect()->route('geographics.index');
     }
 
     /**
@@ -94,7 +111,9 @@ class GeographicsController extends Controller
     }
 
     public function importexcel(Request $request){
-        
+        $request->validate([
+            'file' => 'required|mimes:xlsx'        
+        ]);
         // $file = $request->file('file');
         Excel::import(new GeographicImport,$request->file('file'));                
         return redirect()->route('geographics.index');

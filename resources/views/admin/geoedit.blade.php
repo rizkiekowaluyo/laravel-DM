@@ -1,12 +1,12 @@
 <!-- Modal Edit Data -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editGeoModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h3 class="modal-title" id="exampleModalLabel">Edit Data</h3>									
+            <h3 class="modal-title">Edit Data Geographics</h3>									
         </div>
-        <div class="modal-body geo">
-            <form method="post" action="{{ route('disasters.update', 'update') }}" id="frmEditDisaster">
+        <div class="modal-body">
+            <form method="post" action="{{ route('geographics.update', 'update') }}" id="frmEditGeo">
                 @method('put')
                 @csrf
                 <input type="hidden" name="id" id="id">
@@ -17,24 +17,24 @@
                         <span class="help-block text-danger">{{ $message }}</span>
                     @enderror											
                 </div>
-                <div class="form-group @if ($errors->has('jumlahkejadian')) has-error @endif">
-                    <label for="jumlahkejadian">Jumlah Kejadian</label>
-                    <input type="text" class="form-control" name="jumlahkejadian" id="jumlahkejadian" value="{{old('jumlahkejadian')}}">
-                    @error('jumlahkejadian')
+                <div class="form-group @if ($errors->has('kemiringanlereng')) has-error @endif">
+                    <label for="kemiringanlereng">Kemiringan Lereng</label>
+                    <input type="text" class="form-control" name="kemiringanlereng" id="kemiringanlereng" value="{{old('kemiringanlereng')}}">
+                    @error('kemiringanlereng')
                         <span class="help-block text-danger">{{ $message }}</span>
                     @enderror
                 </div>											
-                <div class="form-group @if ($errors->has('jumlahkorban')) has-error @endif">
-                    <label for="jumlahkorban">Jumlah Korban</label>
-                    <input type="text" class="form-control" name="jumlahkorban" id="jumlahkorban" value="{{old('jumlahkorban')}}">
-                    @error('jumlahkorban')
+                <div class="form-group @if ($errors->has('jenistanah')) has-error @endif">
+                    <label for="jenistanah">Jenis Tanah</label>
+                    <input type="text" class="form-control" name="jenistanah" id="jenistanah" value="{{old('jenistanah')}}">
+                    @error('jenistanah')
                         <span class="help-block text-danger">{{ $message }}</span>
                     @enderror
                 </div>											
-                <div class="form-group @if ($errors->has('jumlahkerusakan')) has-error @endif">
-                    <label for="jumlahkerusakan">Jumlah Kerusakan</label>
-                    <input type="text" class="form-control" name="jumlahkerusakan" id="jumlahkerusakan" value="{{old('jumlahkerusakan')}}">
-                    @error('jumlahkerusakan')
+                <div class="form-group @if ($errors->has('curahhujan')) has-error @endif">
+                    <label for="curahhujan">Curah Hujan</label>
+                    <input type="text" class="form-control" name="curahhujan" id="curahhujan" value="{{old('curahhujan')}}">
+                    @error('curahhujan')
                         <span class="help-block text-danger">{{ $message }}</span>
                     @enderror
                 </div>																				
