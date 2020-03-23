@@ -55,7 +55,7 @@
 	<script src="{{asset('admin/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>	
 	<script src="{{asset('admin/assets/scripts/klorofil-common.js')}}"></script>		
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.js"></script>
-	@yield('script')	
+	@yield('script')
 </body>
 
 </html>

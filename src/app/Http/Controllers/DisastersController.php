@@ -119,6 +119,8 @@ class DisastersController extends Controller
     }
 
     public function importexcel(Request $request){      
+
+        // dd($request);
         $request->validate([
             'file' => 'required|mimes:xlsx'        
         ]);

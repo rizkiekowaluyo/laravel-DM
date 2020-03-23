@@ -208,12 +208,12 @@ $(document).ready(function(){
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
 			}
-		})
+		});
 		event.preventDefault();
 		var formData = new FormData();
 		$.ajax({
 			url: '{{ route('disasters.import') }}',
-			type: 'POST',              
+			type: 'POST',			
 			data: formData,
 			success: function(response){
 				$('#importDisaster').modal('hide')

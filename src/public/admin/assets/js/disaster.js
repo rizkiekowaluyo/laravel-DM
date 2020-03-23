@@ -107,7 +107,7 @@ $(document).ready(function() {
         messages: {
             file: {
               required: "Data import tidak ada",
-              extension: "Format data harus (*.xlsz)"
+              extension: "Format data harus (*.xlsx)"
             }
         },
     })

@@ -2,13 +2,13 @@
     <div class="sidebar-scroll">
         <nav>
             <ul class="nav">
-            <li><a href="{{url('/')}}" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>					
-                <li>
+                <li class=""><a href="{{url('/')}}"  class="{{ Request::is('/')? 'active' : '' }}"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>					
+                <li {{ Request::is('/disasterskmeans')? 'active' : '' }}>
                     <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Data Bencana</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                     <div id="subPages" class="collapse ">
                         <ul class="nav">
-                            <li><a href="{{url('/disasters')}}" class="">Kelola Data Bencana</a></li>
-                            <li><a href="page-login.html" class="">K-Means</a></li>								
+                            <li><a href="{{url('/disasters')}}">Kelola Data Bencana</a></li>
+                            <li><a href="{{url('/disasterkmeans')}}">K-Means</a></li>								
                         </ul>
                     </div>
                 </li>
