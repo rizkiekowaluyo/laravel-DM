@@ -9,6 +9,19 @@ class Disaster extends Model
 {
     //
 	protected $fillable = ['namawilayah','jumlahkejadian','jumlahkorban','jumlahkerusakan'];
+
+	public static function saveHelper($id, $bnJumlahKejadian, $bnJumlahKorban, $bnJumlahKerusakan){
+		return DB::table('helperdisasters')->insert([
+	    			'id'	=> $id,
+	    			'bnJumlahKejadian'	=> $bnJumlahKejadian,
+	    			'bnJumlahKorban'	=> $bnJumlahKorban,
+	    			'bnJumlahKerusakan'	=> $bnJumlahKerusakan	    			
+    			]);
+	}
+
+	public static function countHelper(){
+		return DB::table('disasters')->count();
+	}
 	
 	public static function listData(){
 		return DB::table('disasters')->get();
