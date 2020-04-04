@@ -14,23 +14,8 @@
 							<h3 class="panel-title">Masukkan Pusat Kluster</h3>
                         </div>
                         <div class="panel-body">
-                            <form action="/disasterkmeansdata"> 
-                                @method("post")
-                                @csrf                                             
-                                @for ($i = 0; $i < $count = 3 ; $i++)
-                                <select class="form-control" name='data'>
-                                    <option value="option_select" disabled selected>---</option>
-                                    @foreach ($disasterkmean as $dstk)                                
-                                    <option value="{{$dstk->id}}" data-namawilayah="{{$dstk->namawilayah}}" data-jumlahkejadian="{{$dstk->jumlahkejadian}}" data-jumlahkorban="{{$dstk->jumlahkorban}}" data-jumlahkerusakan="{{$dstk->jumlahkerusakan}}">{{$dstk->namawilayah}}</option>
-                                    @endforeach 
-                                </select>
-                                <br>
-                                @endfor            
-                                <div class="input-group">                                
-                                    <button class="btn btn-primary" type="submit">Submit</button></span>
-                                </div>
-                            </form>                                                        
-                        </div>                        
+                            
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -55,16 +40,7 @@
 										<th>Cluster 2</th>
 										<th>Cluster 3</th>
 									</tr>
-                                </thead>
-                                @php
-                                    $c1a_b=$c1b_b=$c1c_b = 0;
-                                    
-                                    $c2a_b=$c2b_b=$c2c_b = 0;
-                                    
-                                    $c3a_b=$c3b_b=$c3c_b = "";
-
-                                    $hc1=$hc2=$hc3=0;
-                                @endphp
+                                </thead>                            
 								<tbody class="body"> 
                                     @foreach ($disasterkmean as $dstk)                                                                                                         
 									<tr>

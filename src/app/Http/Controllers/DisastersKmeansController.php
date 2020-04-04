@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Disaster;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use DB;
 
 class DisastersKmeansController extends Controller
@@ -11,80 +12,82 @@ class DisastersKmeansController extends Controller
 
     public function kmeans(){ 
         //init var data array       
-        $earlydata = [];
+        $data = [];
 
         $dataDisasters = Disaster::all();
         //dd($dataDisasters);
         //looping change from collection array
         foreach($dataDisasters as $row){
-            $earlydata[]=$row;
+            $data[]=$row;
             $name[] = $row['namawilayah'];
         }
         //dd($earlydata);
-        $earlydata = [];
+        $data = [];
         //looping change array to row(indexing)
         foreach($dataDisasters as $row){
-            $earlydata[]=[
+            $data[]=[
                 $row['jumlahkejadian'],
                 $row['jumlahkorban'],
                 $row['jumlahkerusakan'],
                 $row['namawilayah'],
             ];            
         }
-        dd($earlydata);
+        //dd($earlydata);
+
+        //cluster yang dibentuk
+        $cluster = 3;
         //variabel call method earlyCentroid
-        $centroid_awal =$this->earlyCentroid($earlydata,3);
-        //dd($centroid_awal);
-        $data['earlydata'] = $earlydata;
-        $data['centroid_awal'] = $centroid_awal;
-        
-        // $literasi = $this->distance($earlydata,$centroid_awal);
-        // dd($literasi);
-        // $data['literasi'] = $literasi;
+        $centroid=$this->earlyCentroid($data,$cluster);
+        //dd($centroid[0]);                
         
         $hasil_iterasi=[];
         $hasil_cluster=[];
         $itr=0;
+        //dd($earlydata);
         while (true) {
             $iterasi = array();
-            foreach ($earlydata as $key => $valuedata) {
-                $iterasi[$key]['earlydata']=$valuedata;
-                foreach ($centroid_awal as $key => $valuecentroid) {
+            foreach ($data as $key => $valuedata) {
+                $iterasi[$key]['data']=$valuedata;
+                //dd($valuedata);
+                foreach ($centroid[$itr] as $key_centroid => $valuecentroid) {
                     //dd($valuecentroid);
-                    $iterasi[$key]['centroid_awal'][]=$this->distance($valuedata,$valuecentroid);
+                    $iterasi[$key]['jarak_ke_centroid'][]=$this->distance($valuedata,$valuecentroid);
                 }
-                $iterasi[$key]['jarak_terdekat']=$this->nearDistance($iterasi[$key]['centroid_awal'],$centroid_awal);
+                $iterasi[$key]['jarak_terdekat']=$this->nearDistance($iterasi[$key]['jarak_ke_centroid'],$centroid);
             }
             array_push($hasil_iterasi, $iterasi);        
-            dd($hasil_iterasi, $iterasi , $hasil_cluster);
+            //dd($hasil_iterasi, $iterasi , $hasil_cluster);
             $centroid[++$itr]=$this->newCentroid($iterasi,$hasil_cluster);
-            //dd($centroid);
+            //dd($centroid[$itr]);
             $lanjutkan=$this->centroidChange($centroid,$itr);
             $boolval = boolval($lanjutkan) ? 'ya' : 'tidak';
             if(!$lanjutkan)
             break;
         }
-        dd(end($hasil_iterasi));
+        //dd(end($hasil_iterasi));
+
+        //return view('admin.disasterkmeans',compact('cluster','centroid','data','valuedata','valuecentroid','hasil_iterasi'));
     }
 
-    public function earlyCentroid($data,$centroid){
+    public function earlyCentroid($data,$cluster){
         $randCentroid = [];
-        for ($i=0; $i < $centroid; $i++) { 
-            # code...            
-            $temp = rand(0,(count($data)-1)); 
-            $randCentroid[] = $data[$temp];                           
+        for ($i=0; $i < $cluster; $i++) { 
+            # code...
+            $temp=[20,13,1];
+            while(in_array($randCentroid, [$temp])){
+                $temp=rand(0,(count($data)-1));
+            }                        
+            $centroid[0][] = [
+                $data[$temp[$i]][0],
+                $data[$temp[$i]][1],
+                $data[$temp[$i]][2],
+            ];                           
         }
-        return $randCentroid;
+        return $centroid;
     }
 
     public function distance($data = array(),$centroid = array()){        
-        $resultDistance = sqrt(pow(($data->{'jumlahkejadian'}-$centroid->{'jumlahkejadian'}),2)+pow(($data->{'jumlahkorban'}-$centroid->{'jumlahkorban'}),2)+pow(($data->{'jumlahkerusakan'}-$centroid->{'jumlahkerusakan'}),2));     
-        // $resultDistance = [];
-        // foreach ($data as $key => $value) {
-        //     foreach ($centroid as $key1 => $cnt) {
-        //         $resultDistance[$key][] = sqrt(pow(($value['2']-$cnt['2']),2)+pow(($value['3']-$cnt['3']),2)+pow(($value['4']-$cnt['4']),2));
-        //     }            
-        // }
+        $resultDistance = sqrt(pow(($data[0]-$centroid[0]),2)+pow(($data[1]-$centroid[1]),2)+pow(($data[2]-$centroid[2]),2));             
         return $resultDistance;        
     }
 
@@ -109,15 +112,16 @@ class DisastersKmeansController extends Controller
 
     public function newCentroid($iterasi,$hasil_cluster){
         $hasil_cluster = [];
+        //looping untuk mengelompokan sesuai cluster
         foreach ($iterasi as $key => $value) {
             //dd($value);
-            $hasil_cluster[($value['earlydata']['centroid_awal']-1)][0][]= $value['data'][0];
-            $hasil_cluster[($value['earlydata']['centroid_awal']-1)][1][]= $value['data'][1];
-            $hasil_cluster[($value['earlydata']['centroid_awal']-1)][2][]= $value['data'][2];        
+            $hasil_cluster[($value['jarak_terdekat']['cluster']-1)][0][]= $value['data'][0];
+            $hasil_cluster[($value['jarak_terdekat']['cluster']-1)][1][]= $value['data'][1];
+            $hasil_cluster[($value['jarak_terdekat']['cluster']-1)][2][]= $value['data'][2];        
         }
         //dd($hasil_cluster);    
         $new_centroid = [];
-
+        //looping untuk mencari nilai centroid baru dengan cara mencari rata2 dari masing2 data
         foreach ($hasil_cluster as $key => $value) {
             # code...
             $new_centroid[$key] = [
@@ -127,21 +131,29 @@ class DisastersKmeansController extends Controller
             ];
         }
         //dd($new_centroid);
+        ksort($new_centroid);
+        return $new_centroid;
     }
 
     public function centroidChange($centroid,$itr){
         $centroid_lama = $this->flatten_array($centroid[($itr-1)]); //flattern array
         //dd($centroid_lama);
         $centroid_baru = $this->flatten_array($centroid[$itr]); //flatten array
-        //dd($centroid_baru);
-        //hitbandingkan centroid yang lama dan baru jika berubah return true, jika tidak berubah/jumlah sama=0 return false
+        //dd($centroid[$itr]);
+        // membandingkan centroid yang lama dan baru jika berubah return true, jika tidak berubah/jumlah sama=0 return false
         $jumlah_sama=0;
         for($i=0;$i<count($centroid_lama);$i++){
             if($centroid_lama[$i]===$centroid_baru[$i]){
                 $jumlah_sama++;
             }
         }
-        dd($jumlah_sama);
+        //dd($jumlah_sama);
         return $jumlah_sama===count($centroid_lama) ? false : true; 
+    }
+
+    function flatten_array($arg) {
+        //dd($arg);
+        return is_array($arg) ? array_reduce($arg, function ($c, $a) { 
+            return array_merge($c, Arr::flatten($a)); },[]) : [$arg];
     }
 }
