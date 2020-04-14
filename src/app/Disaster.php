@@ -7,31 +7,28 @@ use DB;
 
 class Disaster extends Model
 {
-    //
+    //! Fillable column
 	protected $fillable = ['namawilayah','jumlahkejadian','jumlahkorban','jumlahkerusakan'];
 
-	public static function saveHelper($id, $bnJumlahKejadian, $bnJumlahKorban, $bnJumlahKerusakan){
-		return DB::table('helperdisasters')->insert([
-	    			'id'	=> $id,
-	    			'bnJumlahKejadian'	=> $bnJumlahKejadian,
-	    			'bnJumlahKorban'	=> $bnJumlahKorban,
-	    			'bnJumlahKerusakan'	=> $bnJumlahKerusakan	    			
-    			]);
+	//! saveHelper func saving to database
+	public static function saveHelper($dcentroid1, $dcentroid2, $dcentroid3, $clusterall){
+		return DB::table('centroids')->insert([
+	    	'distancecentroid1'		=> $dcentroid1,
+	    	'distancecentroid2'		=> $dcentroid2,
+	    	'distancecentroid3'		=> $dcentroid3,
+	    	'cluster'		=> $clusterall,	    			
+    	]);
 	}
-
-	public static function countHelper(){
+	//! count disaster data
+	public static function countdisastersHelper(){
 		return DB::table('disasters')->count();
 	}
-	
-	public static function listData(){
-		return DB::table('disasters')->get();
-	}
-
+	//! deleteHelper func to truncate row centroids table
     public static function deleteHelper(){
-		return DB::select("TRUNCATE Table disasters");
+		return DB::select("TRUNCATE Table centroids");
 	}
-
-	public static function getMin(){
-		return DB::select("Select MIN(jumlahkejadian) as minJmlKejadian, MIN(jumlahkorban) as minJmlKorban, MIN(jumlahkerusakan) as minJmlKerusakan from tblbantu");
+	//! get min value from row centroids table
+	public static function getMinHelper(){
+		return DB::select("Select MIN(jumlahkejadian) as minJmlKejadian, MIN(jumlahkorban) as minJmlKorban, MIN(jumlahkerusakan) as minJmlKerusakan from centroids");
 	}
 }

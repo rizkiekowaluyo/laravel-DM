@@ -8,61 +8,101 @@
     <div class="main-content">
         <div class="container-fluid">            
             <div class="row">
-                <div class="col-md-4">
+                
+                <div class="col-md-6">
                     <div class="panel">
                         <div class="panel-heading">
-							<h3 class="panel-title">Masukkan Pusat Kluster</h3>
+							<h3 class="panel-title">Inisialisasi Awal</h3>
                         </div>
                         <div class="panel-body">
-                            
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>                                                                                
+                                        <th>Jumlah Kejadian</th>
+                                        <th>Jumlah Korban</th>
+                                        <th>Jumlah Kerusakan</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="body">
+                                    @foreach ($centroid[0] as $key_centroid => $value_centroid)
+                                    <tr>
+                                        <td>{{$loop->iteration}}</td>                                        
+                                        <td>{{$value_centroid[0]}}</td>                                        
+                                        <td>{{$value_centroid[1]}}</td>                                        
+                                        <td>{{$value_centroid[2]}}</td>                                                                                
+                                    </tr>    
+                                    @endforeach                                    
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
+
+                <div class="col-md-6">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Akurasi K-Means</h3>
+                        </div>
+                        <div class="panel-body">
+                            <h4>Hasil DBI</h4>                            
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-md-12">
-                    <!-- BORDERED TABLE -->                
-					<div class="panel">
-						<div class="panel-heading">
-							<h3 class="panel-title">K-Means</h3>
-                        </div>                    
-						<div class="panel-body">
-							<table id="datatable" class="table table-bordered">
-								<thead>
-									<tr>
-										<th>#</th>
-										<th>Nama Wilayah</th>
-										<th>Jumlah Kejadian</th>
-										<th>Jumlah Korban Jiwa</th>
-										<th>Jumlah Kerusakan</th>
-										<th>Centroid</th>
-										<th>Centroid</th>
-										<th>Centroid</th>
-										<th>Cluster 1</th>
-										<th>Cluster 2</th>
-										<th>Cluster 3</th>
-									</tr>
-                                </thead>                            
-								<tbody class="body"> 
-                                    @foreach ($disasterkmean as $dstk)                                                                                                         
-									<tr>
-                                        <td scope="row"></td>
-										<td>{{$dstk->namawilayah}}</td>
-										<td>{{$dstk->jumlahkejadian}}</td>
-										<td>{{$dstk->jumlahkorban}}</td>
-										<td>{{$dstk->jumlahkerusakan}}</td>										
-										<td>{{sqrt(pow(($dstk->jumlahkejadian-200),2)+pow(($dstk->jumlahkorban-3202),2)+pow(($dstk->jumlahkerusakan-1203),2))}}</td>										
-										<td>{{sqrt(pow(($dstk->jumlahkejadian-124),2)+pow(($dstk->jumlahkorban-124),2)+pow(($dstk->jumlahkerusakan-1234),2))}}</td>										
-										<td>{{sqrt(pow(($dstk->jumlahkejadian-23),2)+pow(($dstk->jumlahkorban-242),2)+pow(($dstk->jumlahkerusakan-123),2))}}</td>										
-										<td></td>										
-										<td></td>										
-										<td></td>										
-                                    </tr>
-                                    @endforeach                    
-								</tbody>
-							</table>
-                        </div>                        
-					</div>
-					<!-- END BORDERED TABLE -->
-                </div>                
+                    @foreach ($hasil_iterasi as $key => $value)
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Iterasi {{$key+1}}</h3>
+                            <div class="right">
+                                <button type="button" data-toggle="collapse" data-target="#collapse{{$key}}"><i class="lnr lnr-chevron-down"></i></button>
+                            </div>                            
+                        </div>
+                        <div class="panel-body">
+                            <div id="collapse{{$key}}" class="collapse">
+                                <table class="table table-bordered table-striped table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2" class="text-center">#</th>
+                                            <th rowspan="2" class="text-center">Nama Wilayah</th>
+                                            <th rowspan="2" class="text-center">Jumlah Kejadian</th>
+                                            <th rowspan="2" class="text-center">Jumlah Korban Jiwa</th>
+                                            <th rowspan="2" class="text-center">Jumlah Kerusakan</th>
+                                            <th rowspan="1" class="text-center" colspan="{{ $cluster }}">Jarak ke Centroid</th>										
+                                            <th rowspan="2" class="text-center">Jarak Terdekat</th>
+                                            <th rowspan="2" class="text-center">Cluster</th>										
+                                        </tr>
+                                        <tr>
+                                            @for ($i=1; $i <=$cluster ; $i++) <th rowspan="1" class="text-center">
+                                                {{ $i }}
+                                            </th>
+                                            @endfor
+                                        </tr>
+                                    </thead>                            
+                                    <tbody class="body"> 
+                                        @foreach ($value as $key_data => $value_data)                                                                                 
+                                        <tr>
+                                            <td class="text-center" scope="row">{{ $key_data+1 }}</td>
+                                            <td class="text-center">{{$name[$key_data]}}</td>
+                                            <td class="text-center">{{$value_data['data'][0]}}</td>
+                                            <td class="text-center">{{$value_data['data'][1]}}</td>
+                                            <td class="text-center">{{$value_data['data'][2]}}</td>
+                                            @foreach ($value_data['jarak_ke_centroid'] as $key_jc => $value_jarak)
+                                            <td class="text-center">{{$value_jarak}}</td>
+                                            @endforeach                                        										                                        										
+                                            <td>{{ $value_data['jarak_terdekat']['value'] }}</td>										
+                                            <td>{{ $value_data['jarak_terdekat']['cluster'] }}</td>																														
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach                     
+                </div>                                                           
+                                
             </div>
         </div>
     </div>

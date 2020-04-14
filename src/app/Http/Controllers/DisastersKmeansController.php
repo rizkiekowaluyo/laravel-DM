@@ -13,6 +13,7 @@ class DisastersKmeansController extends Controller
     public function kmeans(){ 
         //init var data array       
         $data = [];
+        $name = [];
 
         $dataDisasters = Disaster::all();
         //dd($dataDisasters);
@@ -21,6 +22,7 @@ class DisastersKmeansController extends Controller
             $data[]=$row;
             $name[] = $row['namawilayah'];
         }
+        //dd($name);
         //dd($earlydata);
         $data = [];
         //looping change array to row(indexing)
@@ -60,20 +62,30 @@ class DisastersKmeansController extends Controller
             $centroid[++$itr]=$this->newCentroid($iterasi,$hasil_cluster);
             //dd($centroid[$itr]);
             $lanjutkan=$this->centroidChange($centroid,$itr);
-            $boolval = boolval($lanjutkan) ? 'ya' : 'tidak';
+            $boolval = boolval($lanjutkan) ? 'ya' : 'tidak';        
             if(!$lanjutkan)
             break;
         }
-        //dd(end($hasil_iterasi));
-
-        //return view('admin.disasterkmeans',compact('cluster','centroid','data','valuedata','valuecentroid','hasil_iterasi'));
+        $result_iterasi = last($hasil_iterasi);
+        Disaster::deleteHelper();
+        foreach ($result_iterasi as $key => $value) {
+            # code...
+            $dcentroid1 = $value["jarak_ke_centroid"][0];
+            $dcentroid2 = $value["jarak_ke_centroid"][1];
+            $dcentroid3 = $value["jarak_ke_centroid"][2];
+            $clusterall = $value["jarak_terdekat"]["cluster"];
+            Disaster::saveHelper($dcentroid1, $dcentroid2, $dcentroid3,$clusterall);
+        }
+        // dd(end($hasil_iterasi));
+        
+        return view('admin.disasterkmeans',compact('cluster','centroid','data','valuedata','valuecentroid','hasil_iterasi','name'));
     }
 
     public function earlyCentroid($data,$cluster){
         $randCentroid = [];
         for ($i=0; $i < $cluster; $i++) { 
             # code...
-            $temp=[20,13,1];
+            $temp=[2,12,23];
             while(in_array($randCentroid, [$temp])){
                 $temp=rand(0,(count($data)-1));
             }                        
@@ -156,4 +168,9 @@ class DisastersKmeansController extends Controller
         return is_array($arg) ? array_reduce($arg, function ($c, $a) { 
             return array_merge($c, Arr::flatten($a)); },[]) : [$arg];
     }
+    
+    //TODO1 : Fungsi Sum Square Within (SSW)
+    //TODO2 : Fungsi Sum Square Within (SSB)
+    //TODO3 : Fungsi Ratio(Output DBI) (%)
+    
 }

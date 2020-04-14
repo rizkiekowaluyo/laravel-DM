@@ -14,11 +14,11 @@ class CreateCentroidsTable extends Migration
     public function up()
     {
         Schema::create('centroids', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('iterasi');
-            $table->char('c1');
-            $table->char('c2');
-            $table->char('c3');            
+            $table->bigIncrements('id');            
+            $table->float('distancecentroid1');
+            $table->float('distancecentroid2');
+            $table->float('distancecentroid3');            
+            $table->integer('cluster');            
             $table->timestamps();
         });
     }
