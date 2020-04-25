@@ -45,7 +45,17 @@
                             <h3 class="panel-title">Akurasi K-Means</h3>
                         </div>
                         <div class="panel-body">
-                            <h4>Hasil DBI</h4>                            
+                            <h4>Hasil DBI: </h4><b>{{$ratio}}</b>
+                            <div class="right">
+                                @if ($ratio >= 0)
+                                <span class="label label-success">Nilai DBI Bagus</span>
+                                @else
+                                <span class="label label-danger">Nilai DBI Tidak Bagus</span>
+                                @endif                                                            
+                            </div>
+                            <hr>
+                            <h4>Hasil Purity</h4><b>test</b>
+
                         </div>
                     </div>
                 </div>
@@ -58,7 +68,7 @@
                             <div class="right">
                                 <button type="button" data-toggle="collapse" data-target="#collapse{{$key}}"><i class="lnr lnr-chevron-down"></i></button>
                             </div>                            
-                        </div>
+                        </div>                    
                         <div class="panel-body">
                             <div id="collapse{{$key}}" class="collapse">
                                 <table class="table table-bordered table-striped table-sm">

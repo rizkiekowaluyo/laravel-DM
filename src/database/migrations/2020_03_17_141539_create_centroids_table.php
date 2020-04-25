@@ -17,7 +17,8 @@ class CreateCentroidsTable extends Migration
             $table->bigIncrements('id');            
             $table->float('distancecentroid1');
             $table->float('distancecentroid2');
-            $table->float('distancecentroid3');            
+            $table->float('distancecentroid3');
+            $table->float('mindistance');           
             $table->integer('cluster');            
             $table->timestamps();
         });
