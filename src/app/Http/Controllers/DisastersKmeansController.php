@@ -85,7 +85,7 @@ class DisastersKmeansController extends Controller
             Disaster::saveHelper($dcentroid1, $dcentroid2, $dcentroid3,$mindistance,$clusterall);
         }
         // dd(end($hasil_iterasi));
-        $rs = Disaster::groupClusterHelper()->toArray();
+        $rs = Disaster::groupClusterHelper()->toArray();        
         //dd($rs);
         $ssw = $this->sumsquareWithin($rs);
         $ssb = $this->sumsquareBetween($result_centroid);

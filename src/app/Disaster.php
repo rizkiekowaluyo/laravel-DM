@@ -40,5 +40,5 @@ class Disaster extends Model
 					->groupBy(DB::raw('cluster') )
 					->get();
 		//return DB::select('select distancecentroid2,cluster from centroids group by cluster');	 
-	}
+	}	
 }
