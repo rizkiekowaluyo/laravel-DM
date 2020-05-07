@@ -45,17 +45,21 @@
                             <h3 class="panel-title">Akurasi K-Means</h3>
                         </div>
                         <div class="panel-body">
-                            <h4>Hasil DBI: </h4><b>{{$ratio}}</b>
-                            <div class="right">
-                                @if ($ratio >= 0)
-                                <span class="label label-success">Nilai DBI Bagus</span>
-                                @else
-                                <span class="label label-danger">Nilai DBI Tidak Bagus</span>
-                                @endif                                                            
-                            </div>
-                            <hr>
-                            <h4>Hasil Purity</h4><b>test</b>
-
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>#</th>
+                                        <td>Hasil DBI</td>
+                                        <td>Hasil Purity</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Hasil</th>
+                                        <th>{{$ratio}}</th>
+                                        <th>{{$purity}}</th>
+                                    </tr>
+                                </tbody>
+                            </table>                            
+                                                       
                         </div>
                     </div>
                 </div>

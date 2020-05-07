@@ -17,15 +17,15 @@ class DisastersKmeansController extends Controller
 
         $dataDisasters = Disaster::all();
         //dd($dataDisasters);
-        //looping change from collection array
+        //# looping change from collection array
         foreach($dataDisasters as $row){
-            $data[]=$row;
+            $data[] = $row;
             $name[] = $row['namawilayah'];
         }
         //dd($name);
         //dd($earlydata);
         $data = [];
-        //looping change array to row(indexing)
+        //# looping change array to row(indexing)
         foreach($dataDisasters as $row){
             $data[]=[
                 $row['jumlahkejadian'],
@@ -36,18 +36,17 @@ class DisastersKmeansController extends Controller
         }
         //dd($earlydata);
 
-        //cluster yang dibentuk
+        //# set K based on method,I set 3
         $cluster = 3;
-        //variabel call method earlyCentroid
+
+        //# var centroid call method earlyCentroid
         $centroid=$this->earlyCentroid($data,$cluster);
-        //dd($centroid[0]);                
-        
+        //dd($centroid[0]);                        
         $hasil_iterasi=[];
         $hasil_cluster=[];
-        $itr=0;
-        //dd($earlydata);
-        //dd($data);
-        
+        $itr=0;        
+
+        //-----------------K-MEANS-------------------
         while (true) {
             $iterasi = array();
             foreach ($data as $key => $valuedata) {
@@ -74,6 +73,7 @@ class DisastersKmeansController extends Controller
         $result_iterasi = last($hasil_iterasi);
         //dd($result_iterasi);        
         Disaster::deleteHelper();
+        //dd($result_iterasi);
         foreach ($result_iterasi as $key => $value) {
             # code...
             //dd($value);
@@ -84,16 +84,29 @@ class DisastersKmeansController extends Controller
             $clusterall = $value["jarak_terdekat"]["cluster"];        
             Disaster::saveHelper($dcentroid1, $dcentroid2, $dcentroid3,$mindistance,$clusterall);
         }
-        // dd(end($hasil_iterasi));
+        //dd(end($hasil_iterasi));
+
+        //------------------------DAVIES BOULDIN INDEX------------------
+        //# var rs call method from model(collection) then change to array
         $rs = Disaster::groupClusterHelper()->toArray();        
         //dd($rs);
+        //# var ssw call method sumsquareWithin with param $rs
         $ssw = $this->sumsquareWithin($rs);
+        //# var ssb call method sumsquareWithin with param $result_centroid
         $ssb = $this->sumsquareBetween($result_centroid);
-        $ratio = $this->ratioDBI($ssw,$ssb);        
-        //$rs = $rs->groupBy('cluster');
-        //dd($rs);
+        //# var ratio call method sumsquareWithin with param $rs
+        $ratio = $this->ratioDBI($ssw,$ssb);
+
+        //------------------------PURITY--------------------------
+        //# var Purity call method from model(collection) then change to array
+        $puritysr = Disaster::groupingSameValueCluster()->groupBy('cluster')->toArray();
+        //dd($purity);
+        $purity = $this->purity($puritysr,$data);
+        // $test = array_count_values($purity);
         
-        return view('admin.disasterkmeans',compact('cluster','centroid','data','valuedata','valuecentroid','hasil_iterasi','name','ratio'));
+        //dd($test);
+        
+        return view('admin.disasterkmeans',compact('cluster','centroid','data','valuedata','valuecentroid','hasil_iterasi','name','ratio','purity'));
     }
 
     public function earlyCentroid($data,$cluster){
@@ -191,7 +204,7 @@ class DisastersKmeansController extends Controller
         for ($iterate=0; $iterate < count($rs) ; $iterate++) { 
             $result += $rs[$iterate]->average;
         }
-        // dd($result);
+        //dd($result);
         return $result;
     }
     //TODO2 : Fungsi Sum Square Between (SSB) 
@@ -206,6 +219,20 @@ class DisastersKmeansController extends Controller
     //TODO3 : Fungsi Ratio(Output DBI) (%)
     public function ratioDBI($ssw,$ssb){
         return $ssw/$ssb;
+    }
+
+    //TODO Fungsi Purity
+    public function purity($puritysr,$data){
+        # code...
+        // dd($puritysr);
+        //dd($data);
+        $alldata = [];
+        for($i = 1 ; $i <= count($puritysr) ; $i++){
+            $alldata[$i] = count($puritysr[$i]);
+        }
+        $puritytotal = array_sum($alldata)/count($data);
+        // dd($puritytotal);
+        return $puritytotal;
     }
     
 }
