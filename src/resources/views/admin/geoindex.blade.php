@@ -58,15 +58,15 @@
 							{{$geographics->links()}}	
 							
 							<!-- Modal Import Excel-->
-							<div class="modal fade" id="importGeographic" tabindex="-1" role="dialog"aria-hidden="true">
-								<div class="modal-dialog" role="document">
+							<div class="modal fade" id="importGeographic" role="dialog"aria-hidden="true">
+								<div class="modal-dialog modalcenter">
 								<form method="post" action="{{ route('geographics.import') }}" id="frmImportGeo" enctype="multipart/form-data">								
 								<div class="modal-content">
 									<div class="modal-header">
-									<h3 class="modal-title">Import Data Excel Geographics</h3>									
+										<h3 class="modal-title">Import Data Excel Geographics</h3>									
 									</div>
-									<div class="modal-body">
-									@csrf									
+									@csrf
+									<div class="modal-body">								
 										<div class="form-group">
 											<input type="file" name="file" required="required">
 										</div>
@@ -199,35 +199,36 @@ $(document).ready(function(){
 		})
 
 
-	$('#frmImportGeo').on('submit',function(){
-		//header token CSRF ***************************
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-			}
-		})
-		event.preventDefault();
-		var formData = new FormData();
-		$.ajax({
-			url: '{{ route('geographics.import') }}',
-			type: 'POST',              
-			data: formData,
-			success: function(response){
-				$('#importGeographic').modal('hide')
-				Swal.fire(
-				'Success!',
-				'Data Berhasil ditambahkan',
-				'success'
-				).then(function(){ 
-					location.reload();
-				})										
-			},
-			error: function(data)
-			{
-				console.log(data);
-			}
-		});
-	})
+	// $('#frmImportGeo').on('submit',function(){
+	// 	//header token CSRF ***************************
+	// 	$.ajaxSetup({
+	// 		headers: {
+	// 			'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+	// 		}
+	// 	})
+	// 	event.preventDefault();
+	// 	var formData = new FormData();
+	// 	$.ajax({			
+	// 		url: '{{ route('geographics.import') }}',
+	// 		type: 'POST', 
+	// 		data: formData,
+	// 		processData: false,								
+	// 		success: function(response){
+	// 			$('#importGeographic').modal('hide')
+	// 			Swal.fire(
+	// 			'Success!',
+	// 			'Data Berhasil ditambahkan',
+	// 			'success'
+	// 			).then(function(){ 
+	// 				location.reload();
+	// 			})										
+	// 		},
+	// 		error: function(data)
+	// 		{
+	// 			console.log(data);
+	// 		}
+	// 	});
+	// })
 </script>	
 @endsection
 @endsection

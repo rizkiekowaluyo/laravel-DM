@@ -17,3 +17,11 @@ function clusterGet(){
                 ->get();    
     return $querycount;
 }
+
+function geoclusterGet(){
+    $query = DB::table('geocentroids')
+            ->select('cluster',DB::raw('count(cluster) as countcluster'))
+            ->groupBy('cluster')
+            ->get();
+    return $query;
+}

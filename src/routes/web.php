@@ -30,6 +30,7 @@ Route::get('/disasterkmeans', 'DisastersKmeansController@kmeans');
 Route::resource('/geographics', 'GeographicsController');
 Route::get('/geographics/{id}/destroy', 'GeographicsController@destroy');
 Route::post('/geographics/importexcel', 'GeographicsController@importexcel')->name('geographics.import');
+Route::get('/geographickmeans', 'GeographicsKmeansController@kmeans');
 
 
 

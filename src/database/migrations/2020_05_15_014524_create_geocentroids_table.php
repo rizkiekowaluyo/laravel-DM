@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGeographicsTable extends Migration
+class CreateGeocentroidsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateGeographicsTable extends Migration
      */
     public function up()
     {
-        Schema::create('geographics', function (Blueprint $table) {
+        Schema::create('geocentroids', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('namawilayah');
-            $table->char('kemiringanlereng');
-            $table->char('jenistanah');
-            $table->char('curahhujan');
+            $table->float('distancecentroid1');
+            $table->float('distancecentroid2');
+            $table->float('distancecentroid3');
+            $table->string('mindistance');           
+            $table->integer('cluster');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateGeographicsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('geographics');
+        Schema::dropIfExists('geocentroids');
     }
 }

@@ -25,5 +25,7 @@ class GeographicImport implements ToCollection
                 ]);   
             }                                                                             
         }
+
+        //dd($collection)
     }
 }

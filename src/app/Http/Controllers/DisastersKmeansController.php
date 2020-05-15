@@ -16,7 +16,7 @@ class DisastersKmeansController extends Controller
         $name = [];
 
         $dataDisasters = Disaster::all();
-        //dd($dataDisasters);
+        // dd($dataDisasters);
         //# looping change from collection array
         foreach($dataDisasters as $row){
             $data[] = $row;
@@ -41,7 +41,7 @@ class DisastersKmeansController extends Controller
 
         //# var centroid call method earlyCentroid
         $centroid=$this->earlyCentroid($data,$cluster);
-        //dd($centroid[0]);                        
+        // dd($centroid[0]);                        
         $hasil_iterasi=[];
         $hasil_cluster=[];
         $itr=0;        
@@ -110,6 +110,7 @@ class DisastersKmeansController extends Controller
     }
 
     public function earlyCentroid($data,$cluster){
+        // dd($data);
         $randCentroid = [];
         for ($i=0; $i < $cluster; $i++) { 
             # code...

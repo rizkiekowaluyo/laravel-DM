@@ -39,6 +39,11 @@ th {
   margin-bottom: 30px;
   font-weight: 300; }
 
+.modalcenter {
+  top: 25% !important;
+  transform: translateY(-50%) !important;
+}
+
 footer {
   position: absolute;
   bottom: 0;

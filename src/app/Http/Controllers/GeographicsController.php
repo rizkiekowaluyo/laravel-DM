@@ -111,9 +111,11 @@ class GeographicsController extends Controller
     }
 
     public function importexcel(Request $request){
-        $request->validate([
-            'file' => 'required|mimes:xlsx'        
-        ]);
+        
+        // $request->validate([
+        //     'filegeo' => 'required|mimes:xlsx'        
+        // ]);
+        // dd($request);
         // $file = $request->file('file');
         Excel::import(new GeographicImport,$request->file('file'));                
         return redirect()->route('geographics.index');
