@@ -71,7 +71,12 @@ class GeographicsKmeansController extends Controller
         $ssb = $this->sumsquareBetween($result_centroid);
         $ratio = $this->ratioDBI($ssw,$ssb);
 
-        return view('admin.geokmeans',compact('cluster','centroid','data','valuedata','valuecentroid','hasil_iterasi','name','ratio'));
+        //------------------------PURITY--------------------------
+        $puritygeocluster = Geographic::groupingSameValueCluster()->groupBy('cluster')->toArray();
+        //dd($puritysr);    
+        $puritygeo = $this->purity($puritygeocluster,$data);
+
+        return view('admin.geokmeans',compact('cluster','centroid','data','valuedata','valuecentroid','hasil_iterasi','name','ratio','puritygeo'));
 
     }
 
@@ -79,7 +84,7 @@ class GeographicsKmeansController extends Controller
         //dd($data);
         $randCentroid = [];
         for ($i=0; $i < $cluster; $i++) {             
-            $temp=[2,12,19];
+            $temp=[2,12,23];
             while(in_array($randCentroid, [$temp])){
                 $temp=rand(0,(count($data)-1));
             }                        
@@ -173,4 +178,15 @@ class GeographicsKmeansController extends Controller
         $ratiodbi = $ssw/$ssb;
         return $ssw/$ssb;
     }
+
+    public function purity($puritygeocluster,$data){
+        $alldata = [];
+        for($i = 1 ; $i <= count($puritygeocluster) ; $i++){
+            $alldata[$i] = count($puritygeocluster[$i]);
+        }
+        $puritytotal = array_sum($alldata)/count($data);
+        // dd($puritytotal);
+        return $puritytotal;
+    }
+
 }

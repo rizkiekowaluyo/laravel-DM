@@ -55,7 +55,7 @@
                                     <tr>
                                         <th>Hasil</th>
                                         <th>{{$ratio}}</th>
-                                        {{-- <th>{{$purity}}</th> --}}
+                                        <th>{{$puritygeo}}</th>
                                     </tr>
                                 </tbody>
                             </table>                            

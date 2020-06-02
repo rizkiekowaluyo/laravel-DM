@@ -100,7 +100,7 @@ class DisastersKmeansController extends Controller
         //------------------------PURITY--------------------------
         //# var Purity call method from model(collection) then change to array
         $puritysr = Disaster::groupingSameValueCluster()->groupBy('cluster')->toArray();
-        //dd($purity);
+        //dd($puritysr);
         $purity = $this->purity($puritysr,$data);
         // $test = array_count_values($purity);
         

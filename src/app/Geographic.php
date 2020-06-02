@@ -28,10 +28,17 @@ class Geographic extends Model
     
     //! groupby
 	public static function groupClusterHelper(){		
-		return DB::table('centroids')
+		return DB::table('geocentroids')
 					->select(DB::raw('cluster as cluster'), DB::raw('avg(mindistance) as average'))
 					->groupBy(DB::raw('cluster') )
 					->get();		
+	}
+
+	public static function groupingSameValueCluster(){				
+		return DB::table('geocentroids')
+					->select('cluster',DB::raw('ROUND(mindistance,3) as "mindistance"'),DB::raw('count(*) as count'))					
+					->groupBy('cluster',\DB::raw('CAST((mindistance)+0 AS INT)'))					
+					->get();
 	}
     
 }
