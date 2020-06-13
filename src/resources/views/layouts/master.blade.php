@@ -28,13 +28,16 @@
 
 <body>
 	<!-- WRAPPER -->
+	
 	<div id="wrapper">
+		@auth
         <!-- NAVBAR -->
         @include('layouts.includes._navbar')	
 		<!-- END NAVBAR -->
         <!-- LEFT SIDEBAR -->
         @include('layouts.includes._sidebar')		
 		<!-- END LEFT SIDEBAR -->
+		@endauth
 		<!-- MAIN -->
 		@yield('content')
 		<!-- END MAIN -->
@@ -45,6 +48,7 @@
 			</div>
 		</footer>
 	</div>
+	
 	<!-- END WRAPPER -->
 	<!-- Javascript -->
 	<script src="{{asset('admin/assets/vendor/jquery/jquery.min.js')}}"></script>
