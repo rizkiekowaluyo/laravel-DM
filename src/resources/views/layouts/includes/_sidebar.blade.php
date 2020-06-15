@@ -2,7 +2,7 @@
     <div class="sidebar-scroll">
         <nav>
             <ul class="nav">
-                <li class=""><a href="{{url('/')}}"  class="{{ Request::path() === '/' ? 'active' : '' }}"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>					
+                <li class=""><a href="{{url('/dashboard')}}"  class="{{ Request::path() === '/dashboard' ? 'active' : '' }}"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>					
                 <li {{ Request::is('/disasterskmeans')? 'active' : '' }}>
                     <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Data Bencana</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                     <div id="subPages" class="collapse ">
