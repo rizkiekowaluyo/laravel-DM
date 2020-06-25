@@ -6,8 +6,9 @@ use App\Disaster;
 use Illuminate\Http\Request;
 use App\Imports\DisasterImport;
 use App\Exports\DisasterExport;
-use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Validator;
+
 
 class DisastersController extends Controller
 {
@@ -16,12 +17,16 @@ class DisastersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-        $disasters = Disaster::orderBy('id')->paginate(5);
+    public function index(Request $request)
+    {        
+        if($request->has('search')){
+            $disasters = Disaster::where('namawilayah','LIKE','%'.$request->search.'%')->paginate(5)->setPath('');
+            $pagination = $disasters->appends ( array (
+				'search' => $request->search ) );
+        }else{
+            $disasters = Disaster::orderBy('id')->paginate(5);            
+        }
         return view('admin.disasterindex',compact('disasters'));
-
     }
 
     /**
@@ -113,8 +118,8 @@ class DisastersController extends Controller
         return redirect()->route('disasters.index');
     }
     
-    public function exportexcel(){
-        return Excel::download(new DisasterExport(), 'disasterExcel.xlsx');
+    public function export(){
+        return Excel::download(new DisasterExport, 'datadisaster.xlsx');
         // return "hello";
     }
 

@@ -21,7 +21,7 @@
                         </ul>
                     </div>
                 </li>						
-                <li><a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>Korelasi</span></a></li>
+                <li><a href="{{url('/correlations')}}" class=""><i class="lnr lnr-linearicons"></i> <span>Korelasi</span></a></li>
             </ul>
         </nav>
     </div>

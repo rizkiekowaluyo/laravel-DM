@@ -47,5 +47,11 @@ class Disaster extends Model
 					->select('cluster',DB::raw('CAST((mindistance)+0 AS INT) as "mindistance"'),DB::raw('count(*) as count'))					
 					->groupBy('cluster',\DB::raw('CAST((mindistance)+0 AS INT)'))					
 					->get();
-	}	
+	}
+	//! avg all data
+	public static function avgDataDisaster(){
+		return DB::table('disasters')
+					->select(DB::raw("AVG(jumlahkejadian) as avgkejadian"),DB::raw("AVG(jumlahkorban) as avgkorban"),DB::raw("AVG(jumlahkerusakan) as avgkerusakan"))
+					->get();
+	}
 }

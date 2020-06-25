@@ -16,13 +16,26 @@
 							<h3 class="panel-title">Data Bencana</h3>
 						</div>
 						<div class="panel-body">
-                            <p class="button">
-								<button  type="button" class="btn btn-primary" id="add-disaster" name="add-disaster"><i class="fa fa-plus-square"></i> Add Data </button>
-								<!-- Button trigger modal -->								
-								{{-- <a href="{{ route('disasters.export') }}" class="col-6 btn btn-default"><i class="fa fa-file-export"></i> Export Data </a> --}}
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#importDisaster"><i class="fa fa-file-import"></i> Import Data </button>
-							</p>													
-
+							<div class="row">
+								<div class="col-md-8">
+									<button type="button" class="btn btn-primary" id="add-disaster" name="add-disaster"><i class="fa fa-plus-square"></i> Add Data </button>
+									<!-- Button trigger modal -->																	
+									<button type="button" class="btn btn-default" data-toggle="modal" data-target="#importDisaster"><i class="fa fa-download"></i> Import Data </button>
+									<a href="{{ route('disasters.export') }}" class="col-6 btn btn-default"><i class="fa fa-upload"></i> Export Data </a>									
+								</div>
+								<div class="col-md-4">
+									<form action="/disasters" method="get">
+									<div class="input-group">									
+										<input class="form-control" name="search" type="text" placeholder="Search Data">
+										<span class="input-group-btn">
+											<input class="btn btn-primary" value="search" type="submit">Search!
+										</span>									
+									</div>
+									</form>									
+								</div>
+							</div>
+							<br>
+                        
 							@include('admin.disasteradd')							
 												
 							<table id="datatable" class="table table-bordered">
@@ -39,7 +52,7 @@
 								<tbody>
                                     @foreach ($disasters as $dst)
 									<tr>
-                                        <td scope="row">{{$loop->iteration}}</td>
+                                        <td scope="row">{{($disasters->currentPage() - 1) * $disasters->perPage() + $loop->iteration}}</td>
 										<td>{{$dst->namawilayah}}</td>
 										<td>{{$dst->jumlahkejadian}}</td>
 										<td>{{$dst->jumlahkorban}}</td>
@@ -55,7 +68,7 @@
                                     @endforeach					
 								</tbody>
 							</table>	
-							{{$disasters->links()}}	
+							{{$disasters->render()}}	
 							
 							<!-- Modal Import Excel-->
 							<div class="modal fade" id="importDisaster" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

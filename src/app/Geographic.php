@@ -40,5 +40,11 @@ class Geographic extends Model
 					->groupBy('cluster',\DB::raw('CAST((mindistance)+0 AS INT)'))					
 					->get();
 	}
+	//! avg all data
+	public static function avgDataDisaster(){
+		return DB::table('geographics')
+					->select(DB::raw("AVG(kemiringanlereng) as avglereng"),DB::raw("AVG(jenistanah) as avgtanah"),DB::raw("AVG(curahhujan) as avghujan"))
+					->get();
+	}
     
 }

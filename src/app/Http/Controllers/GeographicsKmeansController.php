@@ -37,9 +37,11 @@ class GeographicsKmeansController extends Controller
 
         while(true){
             $iterasi = array();
-            foreach ($data as $key => $valuedata) {
+            foreach ($data as $key => $valuedata) { 
+                //dd($valuedata);               
                 $iterasi[$key]['data']=$valuedata;
                 foreach ($centroid[$itr] as $keycentroid => $valuecentroid) {
+                    //dd($valuecentroid);
                     $iterasi[$key]['jarak_centroid'][]=$this->distance($valuedata,$valuecentroid);
                 }
                 $iterasi[$key]['jarak_terdekat']=$this->nearDistance($iterasi[$key]['jarak_centroid'],$centroid);
@@ -53,7 +55,8 @@ class GeographicsKmeansController extends Controller
         }
 
         $result_centroid = last($centroid);        
-        $result_iterasi = last($hasil_iterasi);        
+        $result_iterasi = last($hasil_iterasi); 
+        // dd($result_iterasi);       
         Geographic::deleteHelper();
 
         foreach ($result_iterasi as $key => $value) {        
@@ -73,7 +76,7 @@ class GeographicsKmeansController extends Controller
 
         //------------------------PURITY--------------------------
         $puritygeocluster = Geographic::groupingSameValueCluster()->groupBy('cluster')->toArray();
-        //dd($puritysr);    
+        // dd($puritygeocluster);    
         $puritygeo = $this->purity($puritygeocluster,$data);
 
         return view('admin.geokmeans',compact('cluster','centroid','data','valuedata','valuecentroid','hasil_iterasi','name','ratio','puritygeo'));
@@ -158,11 +161,13 @@ class GeographicsKmeansController extends Controller
             return array_merge($c, Arr::flatten($a)); },[]) : [$arg];
     }
 
-    public function sumsquareWithin($rs){              
+    public function sumsquareWithin($rs){  
+        //dd($rs);            
         $result = 0;
         for ($iterate=0; $iterate < count($rs) ; $iterate++) { 
             $result += $rs[$iterate]->average;
-        }        
+        }
+        //dd($result);        
         return $result;
     }
 
@@ -185,7 +190,7 @@ class GeographicsKmeansController extends Controller
             $alldata[$i] = count($puritygeocluster[$i]);
         }
         $puritytotal = array_sum($alldata)/count($data);
-        // dd($puritytotal);
+        //dd($alldata);
         return $puritytotal;
     }
 

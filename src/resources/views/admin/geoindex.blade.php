@@ -16,13 +16,26 @@
 							<h3 class="panel-title">Data Geographics</h3>
 						</div>
 						<div class="panel-body">
-                            <p class="button">
-								<button  type="button" class="btn btn-primary" id="add-geo" name="add-geo"><i class="fa fa-plus-square"></i> Add Data </button>
-								<!-- Button trigger modal -->								
-								{{-- <a href="{{ route('disasters.export') }}" class="col-6 btn btn-default"><i class="fa fa-file-export"></i> Export Data </a> --}}
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#importGeographic"><i class="fa fa-file-import"></i> Import Data </button>
-							</p>
-							
+							<div class="row">
+								<div class="col-md-8">
+									<button  type="button" class="btn btn-primary" id="add-geo" name="add-geo"><i class="fa fa-plus-square"></i> Add Data </button>
+									<!-- Button trigger modal -->																	
+									<button type="button" class="btn btn-default" data-toggle="modal" data-target="#importGeographic"><i class="fa fa-download"></i> Import Data </button>
+									<a href="{{ route('geographics.export') }}" class="col-6 btn btn-default"><i class="fa fa-upload"></i> Export Data </a>
+								</div>
+								<div class="col-md-4">
+									<form action="/geographics" method="get">
+									<div class="input-group">									
+										<input class="form-control" name="search" type="text" placeholder="Search Data">
+										<span class="input-group-btn">
+											<input class="btn btn-primary" value="search" type="submit">Search!
+										</span>									
+									</div>
+									</form>									
+								</div>
+							</div>
+							<br>
+                            					
 							@include('admin.geoadd')							
 												
 							<table id="datatable" class="table table-bordered">
@@ -39,7 +52,7 @@
 								<tbody>
                                     @foreach ($geographics as $geo)
 									<tr>
-                                        <td scope="row">{{$loop->iteration}}</td>
+                                        <td scope="row">{{($geographics->currentPage() - 1) * $geographics->perPage() + $loop->iteration}}</td>
 										<td>{{$geo->namawilayah}}</td>
 										<td>{{$geo->kemiringanlereng}}</td>
 										<td>{{$geo->jenistanah}}</td>

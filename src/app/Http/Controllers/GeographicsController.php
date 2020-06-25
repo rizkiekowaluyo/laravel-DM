@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Geographic;
 use Illuminate\Http\Request;
 use App\Imports\GeographicImport;
+use App\Exports\GeographicExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class GeographicsController extends Controller
@@ -14,10 +15,15 @@ class GeographicsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $geographics = Geographic::orderBy('id')->paginate(5);
+        if($request->has('search')){
+            $geographics = Geographic::where('namawilayah','LIKE','%'.$request->search.'%')->paginate(5)->setPath('');
+            $pagination = $geographics->appends ( array (
+				'search' => $request->search ) );
+        }else{
+            $geographics = Geographic::orderBy('id')->paginate(5);    
+        }   
         return view('admin.geoindex',compact('geographics'));
     }
 
@@ -108,6 +114,10 @@ class GeographicsController extends Controller
         // return $geographics;
         $geographics->delete();
         return redirect()->route('geographics.index');
+    }
+
+    public function export(){
+        return Excel::download(new GeographicExport, 'datageo.xlsx');        
     }
 
     public function importexcel(Request $request){
