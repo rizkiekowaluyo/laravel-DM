@@ -38,10 +38,12 @@
                                 <div class="col-md-6">
                                     <div class="metric">
                                         <span class="icon"><i class="fa fa-bar-chart"></i></span>
+                                        @foreach (correlationGet() as $key => $item)
                                         <p>
-                                            <span class="number">{{correlationGet()}}</span>
+                                            <span class="number">{{['ratiopearson']}}</span>
 											<span class="title">Nilai Korelasional</span>
-										</p>
+										</p>    
+                                        @endforeach                                                                                
                                     </div>
                                 </div>
                             </div>                            
