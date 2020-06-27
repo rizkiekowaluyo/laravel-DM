@@ -16,7 +16,7 @@ class DisastersKmeansController extends Controller
         $name = [];
 
         $dataDisasters = Disaster::all();
-        dd($dataDisasters);
+        //dd($dataDisasters);
         //# looping change from collection array
         foreach($dataDisasters as $row){
             $data[] = $row;
