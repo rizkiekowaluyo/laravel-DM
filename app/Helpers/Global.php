@@ -27,7 +27,7 @@ function geoclusterGet(){
 }
 
 function correlationGet(){    
-    return DB::table('correlations')->where('ratiopearson',$ratiopearson)->first();
+    return DB::table('correlations')->firstWhere('id', 1);
 }
 
 function tenrankkejadiandisaster(){
