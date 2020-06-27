@@ -16,9 +16,9 @@ class CreateDisastersTable extends Migration
         Schema::create('disasters', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('namawilayah');
-            $table->char('jumlahkejadian');
-            $table->char('jumlahkorban');
-            $table->char('jumlahkerusakan');
+            $table->float('jumlahkejadian');
+            $table->float('jumlahkorban');
+            $table->float('jumlahkerusakan');
             $table->timestamps();
         });
     }

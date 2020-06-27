@@ -16,7 +16,7 @@ class DisastersKmeansController extends Controller
         $name = [];
 
         $dataDisasters = Disaster::all();
-        // dd($dataDisasters);
+        dd($dataDisasters);
         //# looping change from collection array
         foreach($dataDisasters as $row){
             $data[] = $row;
@@ -131,7 +131,8 @@ class DisastersKmeansController extends Controller
 
     public function distance($data,$centroid){ 
         // dd($centroid;
-        $resultDistance = sqrt(pow(($data[0]-$centroid[0]),2)+pow(($data[1]-$centroid[1]),2)+pow(($data[2]-$centroid[2]),2));             
+        $resultDistance = sqrt(pow(($data[0]-$centroid[0]),2)+pow(($data[1]-$centroid[1]),2)+pow(($data[2]-$centroid[2]),2));
+        // dd($resultDistance);             
         return $resultDistance;        
     }
 
