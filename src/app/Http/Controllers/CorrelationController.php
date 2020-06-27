@@ -23,9 +23,11 @@ class CorrelationController extends Controller
                 $row['kemiringanlereng'],
                 $row['jenistanah'],
                 $row['curahhujan'],            
+                $row['namawilayah'],            
             ];
+            $name[]=$row['namawilayah'];
         }
-    
+        //dd($name);
         foreach($dataDisaster as $row){
             $datadisaster[]=[
                 $row['jumlahkejadian'],
@@ -42,12 +44,26 @@ class CorrelationController extends Controller
         $resultmultiDisasterGeo = $this->multisubDisasterGeo($resultsubtractDisaster,$resultsubtractGeo);
         $resultpowDisaster = $this->powResultMultiDisaster($resultsubtractDisaster);
         $resultpowGeo = $this->powResultMultiGeo($resultsubtractGeo);
-        
+        //dd($resultpowDisaster);        
+        //dd($resultpowGeo);
+        $resulted = array();
+        foreach ($resultpowDisaster as $key => $data) {
+            $newarray = array();
+            $newarray['pow1'] = $data[0];
+            $newarray['pow2'] = $data[1];
+            $newarray['pow3'] = $data[2];
+            $newarray['pow4'] = $resultpowGeo[$key][0];
+            $newarray['pow5'] = $resultpowGeo[$key][1];
+            $newarray['pow6'] = $resultpowGeo[$key][2];
+            $resulted[] = $newarray;
+            //dd($newarray);
+        }
+        //dd($resulted);
         $resultMultiPow = $this->multiplyPowResult($resultpowDisaster,$resultpowGeo);
         $multiDstGeo = array_sum($resultmultiDisasterGeo);
         $resultpearson = $this->pearsonCorrelation($multiDstGeo,$resultMultiPow);
         //dd($resultsubtractGeo);
-        return view('admin.correlationindex');
+        return view('admin.correlationindex',compact('name','resulted','resultpearson'));
     }
 
     public function subtractDisasterAvg($datadisaster,$avgdatadisaster)
@@ -162,7 +178,9 @@ class CorrelationController extends Controller
     public function pearsonCorrelation($multiDstGeo,$resultMultiPow)
     {
         //dd($resultMultiPow);
+        Disaster::helperDeleteCorrelation();
         $result = $multiDstGeo/sqrt($resultMultiPow);
+        Disaster::helperCorrelation($result);
         // dd($result);
         return $result;
     }

@@ -54,4 +54,16 @@ class Disaster extends Model
 					->select(DB::raw("AVG(jumlahkejadian) as avgkejadian"),DB::raw("AVG(jumlahkorban) as avgkorban"),DB::raw("AVG(jumlahkerusakan) as avgkerusakan"))
 					->get();
 	}
+	//! helper saver correlation
+	public static function helperCorrelation($result)
+	{
+		return DB::table('correlations')->insert([
+	    	'ratioperson'		=> $result,	    		    			
+    	]);
+	}
+	//! helper delete correlation
+	public static function helperDeleteCorrelation()
+	{
+		return DB::select("TRUNCATE Table correlations");
+	}
 }

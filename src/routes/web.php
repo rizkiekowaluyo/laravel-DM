@@ -22,7 +22,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/exportdisasters', 'DisastersController@export')->name('disasters.export');
     Route::post('/disasters/importexcel', 'DisastersController@importexcel')->name('disasters.import');
     Route::get('/disasterkmeans', 'DisastersKmeansController@kmeans');    
-    //Route::post('/disasterkmeans', 'DisasterKmeansController@kmeans');
     
     //Geographic
     Route::resource('/geographics', 'GeographicsController');
@@ -38,4 +37,4 @@ Route::group(['middleware' => ['auth']], function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');

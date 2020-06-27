@@ -12,13 +12,13 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+        <div class="col-sm-12 col-md-6">
             <div class="card bg-danger img-card shadow">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
                             <p class="text-white mb-0">Total Kejadian</p>
-                            <h2 class="mb-0 number-font">---</h2>
+                            <h2 class="mb-0 number-font">{{countkejadian()}}</h2>
                             <p class="text-white mb-0">Kali</p>
                         </div>
                         <div class="ml-auto"> 
@@ -29,13 +29,13 @@
             </div>
         </div><!-- COL END -->
 
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+        <div class="col-sm-12 col-md-6">
             <div class="card bg-info img-card shadow">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
                             <p class="text-white mb-0">Jumlah Korban</p>
-                            <h2 class="mb-0 number-font">----</h2>
+                            <h2 class="mb-0 number-font">{{countkorban()}}</h2>
                             <p class="text-white mb-0">Jiwa</p>
                         </div>
                         <div class="ml-auto"> 
@@ -59,50 +59,79 @@
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">Kabupaten/Kota</h5>
+                    <h5 class="card-title">Rank 10 Kabupaten/Kota</h5>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover mb-0 text-nowrap">
-                            <thead>
-                                <tr>
-                                    <th class="header">No.</th>
-                                    <th class="header">Kabupaten/Kota</th>
-                                    <th class="header">Jumlah Kejadian</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>&nbsp;</td>
-                                    <td>Malang</td>
-                                    <td>202</td>
-                                </tr>
-                                <tr>
-                                    <td>&nbsp;</td>
-                                    <td>Malang</td>
-                                    <td>202</td>
-                                </tr>
-                                <tr>
-                                    <td>&nbsp;</td>
-                                    <td>Malang</td>
-                                    <td>202</td>
-                                </tr>
-                                <tr>
-                                    <td>&nbsp;</td>
-                                    <td>Malang</td>
-                                    <td>202</td>
-                                </tr>
-                                <tr>
-                                    <td>&nbsp;</td>
-                                    <td>Malang</td>
-                                    <td>202</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <div class="scrolltable">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover mb-0 text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th class="header">No.</th>
+                                        <th class="header">Kabupaten/Kota</th>
+                                        <th class="header">Jumlah Kejadian</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $rank = 1
+                                    @endphp
+                                    @foreach (tenrankkejadiandisaster() as $item)
+                                    <tr>
+                                        <td>{{$rank}}</td>
+                                        <td>{{$item->namawilayah}}</td>
+                                        <td>{{$item->jumlahkejadian}}</td>
+                                    </tr>                                    
+                                    @php
+                                        $rank++
+                                    @endphp
+                                    @endforeach                                                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>                    
                 </div>
             </div>
         </div>
+
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Rank 10 Kabupaten/Kota</h5>
+                </div>
+                <div class="card-body">
+                    <div class="scrolltable">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover mb-0 text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th class="header">No.</th>
+                                        <th class="header">Kabupaten/Kota</th>
+                                        <th class="header">Jumlah Kerusakan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $rank = 1
+                                    @endphp
+                                    @foreach (tenrankkerusakandisaster() as $item)
+                                    <tr>
+                                        <td>{{$rank}}</td>
+                                        <td>{{$item->namawilayah}}</td>
+                                        <td>{{$item->jumlahkerusakan}}</td>
+                                    </tr>                                    
+                                    @php
+                                        $rank++
+                                    @endphp
+                                    @endforeach                                                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+
     </div>
     
 </div>

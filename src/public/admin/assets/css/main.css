@@ -1767,4 +1767,13 @@ ul.activity-timeline > li {
     width: 22px;
     border: 1px solid #CCC; }
 
+.scrollable{
+  height: 300px;
+  overflow: scroll;
+}
+
+.scrolltable{
+  height: 300px;
+  overflow: scroll;
+} 
 /*# sourceMappingURL=main.css.map */

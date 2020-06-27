@@ -53,14 +53,16 @@ class DisastersKmeansController extends Controller
                 //dd($valuedata);
                 $iterasi[$key]['data']=$valuedata;
                 //dd($valuedata);
+                // value centroid => earlycentroid
                 foreach ($centroid[$itr] as $key_centroid => $valuecentroid) {
                     //dd($valuecentroid);
+                    //array 2d jarak
                     $iterasi[$key]['jarak_ke_centroid'][]=$this->distance($valuedata,$valuecentroid);
                 }
                 $iterasi[$key]['jarak_terdekat']=$this->nearDistance($iterasi[$key]['jarak_ke_centroid'],$centroid);
             }
             array_push($hasil_iterasi, $iterasi);        
-            //dd($hasil_iterasi, $iterasi , $hasil_cluster);
+            //dd($hasil_iterasi, $iterasi , $hasil_cluster); 
             $centroid[++$itr]=$this->newCentroid($iterasi,$hasil_cluster);
             //dd($centroid[$itr]);
             $lanjutkan=$this->centroidChange($centroid,$itr);

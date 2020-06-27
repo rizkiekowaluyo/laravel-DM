@@ -25,3 +25,29 @@ function geoclusterGet(){
             ->get();
     return $query;
 }
+
+function correlationGet(){    
+    return DB::table('correlations')->where('id',1)->first()->ratioperson;
+}
+
+function tenrankkejadiandisaster(){
+    $disasterrank = Disaster::all();
+    $disasterrank = $disasterrank->sortByDesc('jumlahkejadian')->take(10);
+    return $disasterrank;
+}
+
+function tenrankkerusakandisaster(){
+    $disasterrankrusak = Disaster::all();
+    $disasterrankrusak = $disasterrankrusak->sortByDesc('jumlahkerusakan')->take(10);
+    return $disasterrankrusak;
+}
+
+function countkejadian()
+{
+    return Disaster::get()->sum('jumlahkejadian');
+}
+
+function countkorban()
+{
+    return Disaster::get()->sum('jumlahkorban');
+}

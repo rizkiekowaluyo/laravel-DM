@@ -18,7 +18,7 @@ class GeographicsKmeansController extends Controller
             $data[] = $row;
             $name[] = $row['namawilayah'];
         }
-
+        // dd($name);
         $data = [];
         foreach($dataGeographic as $row){
             $data[]=[
@@ -38,8 +38,8 @@ class GeographicsKmeansController extends Controller
         while(true){
             $iterasi = array();
             foreach ($data as $key => $valuedata) { 
-                //dd($valuedata);               
-                $iterasi[$key]['data']=$valuedata;
+                // dd($valuedata);
+                $iterasi[$key]['data']=$valuedata;                
                 foreach ($centroid[$itr] as $keycentroid => $valuecentroid) {
                     //dd($valuecentroid);
                     $iterasi[$key]['jarak_centroid'][]=$this->distance($valuedata,$valuecentroid);

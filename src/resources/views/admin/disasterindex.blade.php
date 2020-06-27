@@ -78,13 +78,10 @@
 									<div class="modal-header">
 									<h3 class="modal-title" id="exampleModalLabel">Import Data</h3>									
 									</div>
-									<div class="modal-body">
-									@csrf									
-										<div class="form-group @if ($errors->has('file')) has-error @endif">
-											<input type="file" id="file" name="file"/>
-											@error('file')
-												<span class="help-block text-danger">{{ $message }}</span>
-											@enderror
+									@csrf
+									<div class="modal-body">									
+										<div class="form-group">
+											<input type="file" id="file" name="file" required="required">											
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -215,35 +212,35 @@ $(document).ready(function(){
 		})
 
 
-	$('#frmImport').on('submit',function(){
-		//header token CSRF ***************************
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-			}
-		});
-		event.preventDefault();
-		var formData = new FormData();
-		$.ajax({
-			url: '{{ route('disasters.import') }}',
-			type: 'POST',			
-			data: formData,
-			success: function(response){
-				$('#importDisaster').modal('hide')
-				Swal.fire(
-				'Success!',
-				'Data Berhasil ditambahkan',
-				'success'
-				).then(function(){ 
-					location.reload();
-				})										
-			},
-			error: function(data)
-			{
-				console.log(data);
-			}
-    	});
-	})
+	// $('#frmImport').on('submit',function(){
+	// 	//header token CSRF ***************************
+	// 	$.ajaxSetup({
+	// 		headers: {
+	// 			'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+	// 		}
+	// 	});
+	// 	event.preventDefault();
+	// 	var formData = new FormData();
+	// 	$.ajax({
+	// 		url: '{{ route('disasters.import') }}',
+	// 		type: 'POST',			
+	// 		data: formData,
+	// 		success: function(response){
+	// 			$('#importDisaster').modal('hide')
+	// 			Swal.fire(
+	// 			'Success!',
+	// 			'Data Berhasil ditambahkan',
+	// 			'success'
+	// 			).then(function(){ 
+	// 				location.reload();
+	// 			})										
+	// 		},
+	// 		error: function(data)
+	// 		{
+	// 			console.log(data);
+	// 		}
+    // 	});
+	// })
 </script>
 @endsection
 @endsection
