@@ -41,7 +41,7 @@
                                         @foreach (correlationGet() as $key => $item)
                                         <p>
                                             <span class="number">{{['ratiopearson']}}</span>
-											<span class="title">Nilai Korelasional</span>
+											<span class="title">Nilai Kkorelasional</span>
 										</p>    
                                         @endforeach                                                                                
                                     </div>
