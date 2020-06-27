@@ -35,7 +35,7 @@ class Geographic extends Model
 	}
 
 	public static function groupingSameValueCluster(){				
-		return DB::table('centroids')
+		return DB::table('geocentroids')
 					->select('cluster',DB::raw('CAST((mindistance)+0 AS INT) as "mindistance"'),DB::raw('count(*) as count'))					
 					->groupBy('cluster',\DB::raw('CAST((mindistance)+0 AS INT)'))					
 					->get();
