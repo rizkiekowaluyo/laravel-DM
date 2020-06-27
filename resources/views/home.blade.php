@@ -34,7 +34,7 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
-                            <p class="text-white mb-0">Jumlah Korban</p>
+                            <p class="text-white mb-0">Jumlah Korbaan</p>
                             <h2 class="mb-0 number-font">{{countkorban()}}</h2>
                             <p class="text-white mb-0">Jiwa</p>
                         </div>
