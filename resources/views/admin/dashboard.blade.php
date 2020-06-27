@@ -37,13 +37,11 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="metric">
-                                        <span class="icon"><i class="fa fa-bar-chart"></i></span>
-                                        @foreach (correlationGet() as $key => $item)
+                                        <span class="icon"><i class="fa fa-bar-chart"></i></span>                                                                            
                                         <p>
-                                            <span class="number">{{['ratiopearson']}}</span>
-											<span class="title">Nilai Korelasional</span>
-										</p>    
-                                        @endforeach                                                                                
+                                            <span class="number">{{correlationGet()->ratioperson}}</span>
+											<span class="title">Nilai Kkorelassional</span>
+										</p>                                             
                                     </div>
                                 </div>
                             </div>                            

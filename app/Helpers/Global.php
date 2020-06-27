@@ -1,6 +1,7 @@
 <?php
 use App\Disaster;
 use App\Geographic;
+use App\Correlation;
 
 function disasterTotal(){
     return Disaster::count();
@@ -27,8 +28,9 @@ function geoclusterGet(){
 }
 
 function correlationGet(){    
-    return DB::table('correlations')->where('id',1)->first()->ratioperson;
-    // return DB::select('select ratiopearson from correlations where id = ?', ['id' => $id]);
+    $tes = Correlation::first();
+    //dd($tes);
+    return $tes;
 }
 
 function tenrankkejadiandisaster(){
