@@ -15,7 +15,7 @@ class CreateCorrelationsTable extends Migration
     {
         Schema::create('correlations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('ratioperson');
+            $table->float('ratioperson');
             $table->timestamps();
         });
     }

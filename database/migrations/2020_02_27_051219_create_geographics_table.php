@@ -16,9 +16,9 @@ class CreateGeographicsTable extends Migration
         Schema::create('geographics', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('namawilayah');
-            $table->char('kemiringanlereng');
-            $table->char('jenistanah');
-            $table->char('curahhujan');
+            $table->float('kemiringanlereng');
+            $table->float('jenistanah');
+            $table->float('curahhujan');
             $table->timestamps();
         });
     }

@@ -18,7 +18,7 @@ class CreateGeocentroidsTable extends Migration
             $table->float('distancecentroid1');
             $table->float('distancecentroid2');
             $table->float('distancecentroid3');
-            $table->string('mindistance');           
+            $table->float('mindistance');           
             $table->integer('cluster');
             $table->timestamps();
         });
