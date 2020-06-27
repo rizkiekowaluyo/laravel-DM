@@ -26,9 +26,9 @@ function geoclusterGet(){
     return $query;
 }
 
-function correlationGet(){
-    $id = 1;    
-    return DB::select('select ratiopearson from correlations where id = ?', ['id' => $id]);
+function correlationGet(){    
+    return DB::table('correlations')->where('id',1)->first()->ratioperson;
+    // return DB::select('select ratiopearson from correlations where id = ?', ['id' => $id]);
 }
 
 function tenrankkejadiandisaster(){
