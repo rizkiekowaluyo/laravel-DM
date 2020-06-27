@@ -48,12 +48,12 @@ class Disaster extends Model
 					->groupBy('cluster',\DB::raw('CAST((mindistance)+0 AS INT)'))					
 					->get();
 	}
-	// //! avg all data
-	// public static function avgDataDisaster(){
-	// 	return DB::table('disasters')
-	// 				->select(DB::raw("AVG(jumlahkejadian) as avgkejadian"),DB::raw("AVG(jumlahkorban) as avgkorban"),DB::raw("AVG(jumlahkerusakan) as avgkerusakan"))
-	// 				->get();
-	// }
+	//! avg all data
+	public static function avgDataDisaster(){
+		return DB::table('disasters')
+					->select(DB::raw("AVG(jumlahkejadian) as avgkejadian"),DB::raw("AVG(jumlahkorban) as avgkorban"),DB::raw("AVG(jumlahkerusakan) as avgkerusakan"))
+					->get();
+	}
 	//! helper saver correlation
 	public static function helperCorrelation($result)
 	{
