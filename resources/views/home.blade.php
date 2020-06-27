@@ -47,7 +47,7 @@
         </div><!-- COL END -->
     </div>
 
-    <br><div class="col text-center"><h5><b>Data Hasil Cluster</b></h5></div><br>
+    <br><div class="col text-center"><h5><b>Data Hasill Cluster</b></h5></div><br>
 
     <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
