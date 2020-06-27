@@ -13,7 +13,7 @@
 Route::group(['middleware' => ['auth']], function () {
     //
     Route::get('/dashboard', function () {
-        return view('admin\dashboard');
+        return view('admin/dashboard');
     })->name('dashboard');
     
     //Disaster
