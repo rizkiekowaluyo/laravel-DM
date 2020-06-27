@@ -129,8 +129,15 @@ class DisastersKmeansController extends Controller
         return $centroid;
     }
 
-    public function distance($data = array(),$centroid = array()){   
-        $resultDistance = sqrt(pow(($data[0]-$centroid[0]),2)+pow(($data[1]-$centroid[1]),2)+pow(($data[2]-$centroid[2]),2));             
+    public function distance($data = array(),$centroid = array()){ 
+        //dd($centroid);
+        $data1 = $data[0];        
+        $data2 = $data[1];        
+        $data3 = $data[2];        
+        $cen1 = $data[0];        
+        $cen2 = $data[1];        
+        $cen3 = $data[2];        
+        $resultDistance = sqrt(pow(($data1-$cen1),2)+pow(($data2-$cen2),2)+pow(($data3-$cen3),2));             
         return $resultDistance;        
     }
 
