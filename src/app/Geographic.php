@@ -8,7 +8,7 @@ use DB;
 class Geographic extends Model
 {
     //
-    protected $fillable = ['namawilayah','kemiringanlereng','jenistanah','curahhujan'];
+    protected $fillable = ['namawilayah','kemiringanlereng','jenistanah','curahhujan','tegal','huma','sementaratidakdiusahakan'];
 
     //! saveHelper func saving to database
 	public static function saveHelper($dcentroid1, $dcentroid2, $dcentroid3, $mindistance, $clusterall){
@@ -36,14 +36,14 @@ class Geographic extends Model
 
 	public static function groupingSameValueCluster(){				
 		return DB::table('geocentroids')
-					->select('cluster',DB::raw('CAST((mindistance)+0 AS INT) as "mindistance"'),DB::raw('count(*) as count'))					
-					->groupBy('cluster',\DB::raw('CAST((mindistance)+0 AS INT)'))					
+					->select('cluster',DB::raw('mindistance as "mindistance"'),DB::raw('count(*) as count'))					
+					->groupBy('cluster',\DB::raw('mindistance'))					
 					->get();
 	}
 	//! avg all data
 	public static function avgDataDisaster(){
 		return DB::table('geographics')
-					->select(DB::raw("AVG(kemiringanlereng) as avglereng"),DB::raw("AVG(jenistanah) as avgtanah"),DB::raw("AVG(curahhujan) as avghujan"))
+					->select(DB::raw("AVG(kemiringanlereng) as avglereng"),DB::raw("AVG(jenistanah) as avgtanah"),DB::raw("AVG(curahhujan) as avghujan"),DB::raw("AVG(tegal) as avgtegal"),DB::raw("AVG(huma) as avghuma"))
 					->get();
 	}
     

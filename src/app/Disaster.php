@@ -44,8 +44,8 @@ class Disaster extends Model
 	//! geouping count same value on cluster
 	public static function groupingSameValueCluster(){				
 		return DB::table('centroids')
-					->select('cluster',DB::raw('CAST((mindistance)+0 AS INT) as "mindistance"'),DB::raw('count(*) as count'))					
-					->groupBy('cluster',\DB::raw('CAST((mindistance)+0 AS INT)'))					
+					->select('cluster',DB::raw('mindistance as "mindistance"'),DB::raw('count(*) as count'))					
+					->groupBy('cluster',\DB::raw('mindistance'))					
 					->get();
 	}
 	//! avg all data

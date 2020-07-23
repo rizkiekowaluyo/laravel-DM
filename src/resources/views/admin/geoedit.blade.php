@@ -38,6 +38,27 @@
                         <span class="help-block text-danger">{{ $message }}</span>
                     @enderror
                 </div>																				
+                <div class="form-group @if ($errors->has('tegal')) has-error @endif">
+                    <label for="tegal">Tegal/Kebun</label>
+                    <input type="text" class="form-control" name="tegal" id="tegal" value="{{old('tegal')}}">
+                    @error('tegal')
+                        <span class="help-block text-danger">{{ $message }}</span>
+                    @enderror
+                </div>																				
+                <div class="form-group @if ($errors->has('huma')) has-error @endif">
+                    <label for="huma">Huma/Lahan</label>
+                    <input type="text" class="form-control" name="huma" id="huma" value="{{old('huma')}}">
+                    @error('huma')
+                        <span class="help-block text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="form-group @if ($errors->has('sementaratidakdiusahakan')) has-error @endif">
+                    <label for="sementaratidakdiusahakan">Lahan Sementara</label>
+                    <input type="text" class="form-control" name="sementaratidakdiusahakan" id="sementaratidakdiusahakan" value="{{old('sementaratidakdiusahakan')}}">
+                    @error('sementaratidakdiusahakan')
+                        <span class="help-block text-danger">{{ $message }}</span>
+                    @enderror
+                </div>																				
         </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

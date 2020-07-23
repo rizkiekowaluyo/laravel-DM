@@ -40,7 +40,7 @@
                                         <span class="icon"><i class="fa fa-bar-chart"></i></span>                                                                            
                                         <p>
                                             <span class="number">{{correlationGet()->ratioperson}}</span>
-											<span class="title">Nilai Kkorelassional</span>
+											<span class="title">Nilai Korelassional</span>
 										</p>                                             
                                     </div>
                                 </div>

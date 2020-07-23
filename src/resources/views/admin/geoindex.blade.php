@@ -46,6 +46,9 @@
 										<th>kemiringan Lereng</th>
 										<th>Jenis Tanah</th>
 										<th>Curah Hujan</th>
+										<th>Tegal</th>
+										<th>Huma</th>
+										<th>Sementara</th>
 										<th>Aksi</th>
 									</tr>
 								</thead>
@@ -57,10 +60,13 @@
 										<td>{{$geo->kemiringanlereng}}</td>
 										<td>{{$geo->jenistanah}}</td>
 										<td>{{$geo->curahhujan}}</td>
+										<td>{{$geo->tegal}}</td>
+										<td>{{$geo->huma}}</td>
+										<td>{{$geo->sementaratidakdiusahakan}}</td>
 										<td>   
 											{{-- UPDATE BUTTON --}}
 											<a class="label label-success edit-geo" value="{{$geo->id}}" data-id="{{$geo->id}}"
-												data-namawilayah="{{$geo->namawilayah}}" data-kemiringanlereng="{{$geo->kemiringanlereng}}" data-jenistanah="{{$geo->jenistanah}}" data-curahhujan="{{$geo->curahhujan}}">Edit</a>											
+												data-namawilayah="{{$geo->namawilayah}}" data-kemiringanlereng="{{$geo->kemiringanlereng}}" data-jenistanah="{{$geo->jenistanah}}" data-curahhujan="{{$geo->curahhujan}}" data-tegal="{{$geo->tegal}}" data-huma="{{$geo->huma}}" data-sementaratidakdiusahakan="{{$geo->sementaratidakdiusahakan}}">Edit</a>											
 											{{-- DELETE BUTTON --}}											
 											<a class="label label-danger delete-geo" data-id="{{$geo->id}}" data-namawilayah="{{$geo->namawilayah}}">Delete</a>
                                         </td>
@@ -133,6 +139,9 @@ $(document).ready(function(){
 				$('.modal-body #kemiringanlereng').val(data.kemiringanlereng);                
 				$('.modal-body #jenistanah').val(data.jenistanah); 
 				$('.modal-body #curahhujan').val(data.curahhujan);                
+				$('.modal-body #tegal').val(data.tegal);                
+				$('.modal-body #huma').val(data.huma);                
+				$('.modal-body #sementaratidakdiusahakan').val(data.sementaratidakdiusahakan);                
 				$('#editGeoModal').modal('show');								
 		});
 	});

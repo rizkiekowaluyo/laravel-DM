@@ -19,6 +19,9 @@ class CreateGeographicsTable extends Migration
             $table->float('kemiringanlereng');
             $table->float('jenistanah');
             $table->float('curahhujan');
+            $table->float('tegal',8,5);
+            $table->float('huma',8,5);
+            $table->float('sementaratidakdiusahakan',8,7);
             $table->timestamps();
         });
     }

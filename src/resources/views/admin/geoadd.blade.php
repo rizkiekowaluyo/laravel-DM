@@ -24,6 +24,18 @@
                   <label for="curahhujan">Curah Hujan</label>
                   <input type="text" class="form-control" name="curahhujan" id="curahhujan">
                 </div>																				
+                <div class="form-group">
+                  <label for="tegal">Tegal/Kebun</label>
+                  <input type="text" class="form-control" name="tegal" id="tegal">
+                </div>																				
+                <div class="form-group">
+                  <label for="huma">Huma/Ladang</label>
+                  <input type="text" class="form-control" name="huma" id="huma">
+                </div>																				
+                <div class="form-group">
+                  <label for="sementaratidakdiusahakan">Lahan Sementara</label>
+                  <input type="text" class="form-control" name="sementaratidakdiusahakan" id="sementaratidakdiusahakan">
+                </div>																				
         </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -21,7 +21,10 @@ class GeographicImport implements ToCollection
                     'namawilayah' => $data[0],                   
                     'kemiringanlereng' => $data[1],                   
                     'jenistanah' => $data[2],                   
-                    'curahhujan' => $data[3]                   
+                    'curahhujan' => $data[3],                   
+                    'tegal' => $data[4],                   
+                    'huma' => $data[5],                   
+                    'sementaratidakdiusahakan' => $data[6]                   
                 ]);   
             }                                                                             
         }

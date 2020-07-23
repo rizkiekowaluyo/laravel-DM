@@ -50,7 +50,10 @@ class GeographicsController extends Controller
             'namawilayah' => 'required',
             'kemiringanlereng' => 'required|numeric',
             'jenistanah' => 'required|numeric',
-            'curahhujan' => 'required|numeric'
+            'curahhujan' => 'required|numeric',
+            'tegal' => 'required|numeric',
+            'huma' => 'required|numeric',
+            'sementaratidakdiusahakan' => 'required|numeric'
         ]);
         Geographic::create($request->all());      
         return redirect()->route('geographics.index');
@@ -94,7 +97,10 @@ class GeographicsController extends Controller
             'namawilayah' => 'required',
             'kemiringanlereng' => 'required|numeric',
             'jenistanah' => 'required|numeric',
-            'curahhujan' => 'required|numeric'
+            'curahhujan' => 'required|numeric',
+            'tegal' => 'required|numeric',
+            'huma' => 'required|numeric',
+            'sementaratidakdiusahakan' => 'required|numeric'
         ]);
         $geographics = Geographic::findOrFail($request->id);
         $geographics->update($request->all());

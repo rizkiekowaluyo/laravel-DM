@@ -23,6 +23,8 @@ class CorrelationController extends Controller
                 $row['kemiringanlereng'],
                 $row['jenistanah'],
                 $row['curahhujan'],            
+                $row['tegal'],            
+                $row['huma'],            
                 $row['namawilayah'],            
             ];
             $name[]=$row['namawilayah'];
@@ -37,11 +39,16 @@ class CorrelationController extends Controller
         }
         //dd($datageo);
         $avgdatadisaster = Disaster::avgDataDisaster()->toArray();
-        $avgdatageo = Geographic::avgDataDisaster()->toArray();
         //dd($avgdatadisaster);
-        $resultsubtractDisaster = $this->subtractDisasterAvg($datadisaster,$avgdatadisaster);        
+        $avgdatageo = Geographic::avgDataDisaster()->toArray();
+        //dd($avgdatageo);
+        $resultsubtractDisaster = $this->subtractDisasterAvg($datadisaster,$avgdatadisaster);
+        //dd($resultsubtractDisaster);
         $resultsubtractGeo = $this->subtractGeoAvg($datageo,$avgdatageo);
+        //dd($resultsubtractGeo);
         $resultmultiDisasterGeo = $this->multisubDisasterGeo($resultsubtractDisaster,$resultsubtractGeo);
+        //dd($resultsubtractDisaster);
+        //dd($resultmultiDisasterGeo);
         $resultpowDisaster = $this->powResultMultiDisaster($resultsubtractDisaster);
         $resultpowGeo = $this->powResultMultiGeo($resultsubtractGeo);
         //dd($resultpowDisaster);        
@@ -55,14 +62,18 @@ class CorrelationController extends Controller
             $newarray['pow4'] = $resultpowGeo[$key][0];
             $newarray['pow5'] = $resultpowGeo[$key][1];
             $newarray['pow6'] = $resultpowGeo[$key][2];
+            $newarray['pow7'] = $resultpowGeo[$key][3];
+            $newarray['pow8'] = $resultpowGeo[$key][4];
             $resulted[] = $newarray;
             //dd($newarray);
         }
         //dd($resulted);
         $resultMultiPow = $this->multiplyPowResult($resultpowDisaster,$resultpowGeo);
+        //dd($resultMultiPow);
         $multiDstGeo = array_sum($resultmultiDisasterGeo);
+        //dd($multiDstGeo);
         $resultpearson = $this->pearsonCorrelation($multiDstGeo,$resultMultiPow);
-        //dd($resultsubtractGeo);
+        //dd($resultpearson);
         return view('admin.correlationindex',compact('name','resulted','resultpearson'));
     }
 
@@ -91,6 +102,8 @@ class CorrelationController extends Controller
                 $y1 = $datageo[$key][0]-$avgdatageo[0]->avglereng,
                 $y1 = $datageo[$key][1]-$avgdatageo[0]->avgtanah,
                 $y1 = $datageo[$key][2]-$avgdatageo[0]->avghujan,                
+                $y1 = $datageo[$key][3]-$avgdatageo[0]->avgtegal,                
+                $y1 = $datageo[$key][4]-$avgdatageo[0]->avghuma,                
             ];
         }        
         return $result;
@@ -147,6 +160,8 @@ class CorrelationController extends Controller
                 $pwgeo1 = pow($value[0],2),
                 $pwgeo2 = pow($value[1],2),
                 $pwgeo3 = pow($value[2],2),
+                $pwgeo4 = pow($value[3],2),
+                $pwgeo5 = pow($value[4],2),
             ];
         }
         //dd(array_sum(array_column($result,0)));
@@ -164,8 +179,10 @@ class CorrelationController extends Controller
         $rpGeo1 = array_sum(array_column($resultpowGeo,0));
         $rpGeo2 = array_sum(array_column($resultpowGeo,1));
         $rpGeo3 = array_sum(array_column($resultpowGeo,2));
+        $rpGeo4 = array_sum(array_column($resultpowGeo,3));
+        $rpGeo5 = array_sum(array_column($resultpowGeo,4));
 
-        $result = $rpDst1*$rpDst2*$rpDst3*$rpGeo1*$rpGeo2*$rpGeo3;
+        $result = $rpDst1*$rpDst2*$rpDst3*$rpGeo1*$rpGeo2*$rpGeo3*$rpGeo4*$rpGeo5;
         //?AUTO
         // for ($i=0; $i < count($resultpowDisaster); $i++) {                        
         //     $resultdst[] = array_sum(array_column($resultpowDisaster,$i));

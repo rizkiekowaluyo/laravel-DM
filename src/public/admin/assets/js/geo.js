@@ -33,6 +33,21 @@ $(document).ready(function() {
                 required: true,
                 number: true
             },
+
+            tegal: {
+                required: true,
+                number: true
+            },
+
+            huma: {
+                required: true,
+                number: true
+            },
+
+            sementaratidakdiusahakan: {
+                required: true,
+                number: true
+            },
         },
         messages: {
 
@@ -92,6 +107,18 @@ $(document).ready(function() {
             },
             curahhujan: {
                 required: "Jumlah kerusakan wajib diisi",                
+                number: "Isi data dengan format angka",                
+            },
+            tegal: {
+                required: "Jumlah tegal wajib diisi",                
+                number: "Isi data dengan format angka",                
+            },
+            huma: {
+                required: "Jumlah huma wajib diisi",                
+                number: "Isi data dengan format angka",                
+            },
+            sementaratidakdiusahakan: {
+                required: "Jumlah lahan sementara wajib diisi",                
                 number: "Isi data dengan format angka",                
             },
         },

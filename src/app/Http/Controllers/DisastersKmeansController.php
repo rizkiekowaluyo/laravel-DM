@@ -53,20 +53,25 @@ class DisastersKmeansController extends Controller
                 //dd($valuedata);
                 $iterasi[$key]['data']=$valuedata;
                 //dd($valuedata);
-                // value centroid => earlycentroid
+                //# value centroid => earlycentroid
                 foreach ($centroid[$itr] as $key_centroid => $valuecentroid) {
                     //dd($valuecentroid);
-                    //array 2d jarak
+                    //# array 2d jarak
                     $iterasi[$key]['jarak_ke_centroid'][]=$this->distance($valuedata,$valuecentroid);
+                    //dd($iterasi);
                 }
+                //# array 2d jarak terdekat
                 $iterasi[$key]['jarak_terdekat']=$this->nearDistance($iterasi[$key]['jarak_ke_centroid'],$centroid);
+                //dd($iterasi);
             }
+            //# push two array into 1 array
             array_push($hasil_iterasi, $iterasi);        
             //dd($hasil_iterasi, $iterasi , $hasil_cluster); 
             $centroid[++$itr]=$this->newCentroid($iterasi,$hasil_cluster);
-            //dd($centroid[$itr]);
+            //dd($centroid);
             $lanjutkan=$this->centroidChange($centroid,$itr);
-            $boolval = boolval($lanjutkan) ? 'ya' : 'tidak';        
+            $boolval = boolval($lanjutkan) ? 'ya' : 'tidak';
+            //# checking if centroid not change it will break        
             if(!$lanjutkan)
             break;
         }
@@ -104,6 +109,7 @@ class DisastersKmeansController extends Controller
         $puritysr = Disaster::groupingSameValueCluster()->groupBy('cluster')->toArray();
         //dd($puritysr);
         $purity = $this->purity($puritysr,$data);
+        //dd($purity);
         // $test = array_count_values($purity);
         
         //dd($test);
@@ -138,6 +144,7 @@ class DisastersKmeansController extends Controller
 
     public function nearDistance($jarak_ke_centroid,$centroid){
         foreach ($jarak_ke_centroid as $key => $value) {
+            //# check mininum distance
             if(!isset($minimum)){
                 $minimum=$value;
                
@@ -157,7 +164,7 @@ class DisastersKmeansController extends Controller
 
     public function newCentroid($iterasi,$hasil_cluster){
         $hasil_cluster = [];
-        //looping untuk mengelompokan sesuai cluster
+        //# looping for regrouping based on cluster
         foreach ($iterasi as $key => $value) {
             //dd($value);
             $hasil_cluster[($value['jarak_terdekat']['cluster']-1)][0][]= $value['data'][0];
@@ -166,7 +173,7 @@ class DisastersKmeansController extends Controller
         }
         //dd($hasil_cluster);    
         $new_centroid = [];
-        //looping untuk mencari nilai centroid baru dengan cara mencari rata2 dari masing2 data
+        //# looping for find new centroid in a way find average from each data
         foreach ($hasil_cluster as $key => $value) {
             # code...
             $new_centroid[$key] = [
@@ -176,6 +183,7 @@ class DisastersKmeansController extends Controller
             ];
         }
         //dd($new_centroid);
+        //sort based key array
         ksort($new_centroid);
         return $new_centroid;
     }
@@ -185,7 +193,7 @@ class DisastersKmeansController extends Controller
         //dd($centroid_lama);
         $centroid_baru = $this->flatten_array($centroid[$itr]); //flatten array
         //dd($centroid[$itr]);
-        // membandingkan centroid yang lama dan baru jika berubah return true, jika tidak berubah/jumlah sama=0 return false
+        //# comparing old centroid dan new centroid if change return true, if not change/value jumlah equal = 0 return false
         $jumlah_sama=0;
         for($i=0;$i<count($centroid_lama);$i++){
             if($centroid_lama[$i]===$centroid_baru[$i]){
@@ -198,6 +206,7 @@ class DisastersKmeansController extends Controller
 
     function flatten_array($arg) {
         //dd($arg);
+        //# find variable array then send value and then merge array
         return is_array($arg) ? array_reduce($arg, function ($c, $a) { 
             return array_merge($c, Arr::flatten($a)); },[]) : [$arg];
     }
@@ -206,6 +215,7 @@ class DisastersKmeansController extends Controller
     public function sumsquareWithin($rs){
         //dd(count($rs));        
         $result = 0;
+        //looping based count param
         for ($iterate=0; $iterate < count($rs) ; $iterate++) { 
             $result += $rs[$iterate]->average;
         }
@@ -221,7 +231,7 @@ class DisastersKmeansController extends Controller
         $resultall = $resultc1c2+$resultc1c3+$resultc2c3;
         return $resultall;        
     } 
-    //TODO3 : Fungsi Ratio(Output DBI) (%)
+    //TODO3 : Fungsi Ratio(Output DBI)
     public function ratioDBI($ssw,$ssb){
         return $ssw/$ssb;
     }
@@ -232,11 +242,12 @@ class DisastersKmeansController extends Controller
         // dd($puritysr);
         //dd($data);
         $alldata = [];
+        //# looping based on param
         for($i = 1 ; $i <= count($puritysr) ; $i++){
             $alldata[$i] = count($puritysr[$i]);
         }
         $puritytotal = array_sum($alldata)/count($data);
-        // dd($puritytotal);
+        //dd($alldata);
         return $puritytotal;
     }
     

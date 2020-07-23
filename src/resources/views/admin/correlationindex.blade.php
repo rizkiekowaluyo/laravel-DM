@@ -27,6 +27,8 @@
                                             <th scope="col">Pow4</th>
                                             <th scope="col">Pow5</th>
                                             <th scope="col">Pow6</th>
+                                            <th scope="col">Pow7</th>
+                                            <th scope="col">Pow8</th>
                                         </tr>
                                     </thead>
                                     <tbody class="body">
@@ -40,6 +42,8 @@
                                             <td>{{$valuedata['pow4']}}</td>
                                             <td>{{$valuedata['pow5']}}</td>
                                             <td>{{$valuedata['pow6']}}</td>                                                                                    
+                                            <td>{{$valuedata['pow7']}}</td>                                                                                    
+                                            <td>{{$valuedata['pow8']}}</td>                                                                                    
                                         </tr>
                                         @endforeach                                                                                 
                                     </tbody>
